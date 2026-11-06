@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>莖的構造｜網頁版教科書</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@600;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FCFEFD; --surface:#FFFFFF; --panel:#F0F6F2; --ink:#1C2B25; --ink-soft:#4E6159; --rule:#C8D8CF;
+  --green:#2E7A60; --green-pale:#D6EADF; --on-green:#FFFFFF;
+  --safranin:#AE3559; --safranin-pale:#F5DCE3; --hl:#2457C5;
+  --t-epi:#2F6E58; --t-cortex:#D3E8DB; --t-cortex-line:#9DC7B1; --t-pith:#F1F7F2; --t-pith-line:#BCD6C7;
+  --t-phloem:#79B198; --t-phloem-line:#4F8B71; --t-fiber:#C4577A; --t-cambium:#E3A93C;
+  --t-xylem:#E5A0B0; --t-xylem-line:#9E2F4E; --t-early:#F2D2B0; --t-late:#B8784A;
+  --t-heart-e:#B98258; --t-heart:#87502F; --t-cork:#7A5236; --t-corkcam:#E99C9C; --t-ray:rgba(255,255,255,.6);
+  --serif:"Noto Serif TC","Songti TC","PMingLiU",serif;
+  --sans:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  color-scheme:light;
+}
+:root[data-theme="dark"]{
+  --paper:#0F1916; --surface:#17241F; --panel:#1E2E28; --ink:#E2EDE7; --ink-soft:#A3B8AE; --rule:#2D3E37;
+  --green:#6CC3A3; --green-pale:#1D382F; --on-green:#0F1916;
+  --safranin:#E8839F; --safranin-pale:#3A1F29; --hl:#86AEFF;
+  --t-epi:#62B593; --t-cortex:#2A463B; --t-cortex-line:#42695A; --t-pith:#20322B; --t-pith-line:#3A5348;
+  --t-phloem:#4C8C72; --t-phloem-line:#7FC0A3; --t-fiber:#C4577A; --t-cambium:#E3A93C;
+  --t-xylem:#9C4A60; --t-xylem-line:#F2A3B7; --t-early:#A88063; --t-late:#6D4329;
+  --t-heart-e:#6E4B33; --t-heart:#4D2C1A; --t-cork:#5E3F2A; --t-corkcam:#B86B6B; --t-ray:rgba(255,255,255,.35);
+  color-scheme:dark;
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);}
+*,*::before,*::after{box-sizing:inherit}
+html{font-size:17px;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 68px);}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:19px;line-height:1.9;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+img,svg{max-width:100%}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--hl);outline-offset:2px;border-radius:4px}
+
+/* top bar */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--paper);border-bottom:1px solid var(--rule)}
+.topbar-inner{display:flex;align-items:center;gap:14px;max-width:1080px;margin:0 auto;padding:0 20px;height:56px}
+.brand{font-family:var(--serif);font-weight:900;font-size:1.15rem;white-space:nowrap;color:var(--green);text-decoration:none}
+.nav{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1}
+.nav::-webkit-scrollbar{display:none}
+.nav a{padding:5px 11px;border-radius:999px;color:var(--ink-soft);text-decoration:none;font-size:.88rem;white-space:nowrap}
+.nav a.on{background:var(--green-pale);color:var(--green);font-weight:700}
+
+/* cover */
+.cover{max-width:1080px;margin:0 auto;padding:48px 20px 72px;display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;min-height:calc(100svh - 70px)}
+.cover h1{font-family:var(--serif);font-weight:900;font-size:clamp(6.5rem,17vw,11rem);line-height:.95;margin:0;color:var(--green)}
+.cover .sub{font-family:var(--serif);font-size:clamp(1.4rem,3vw,1.8rem);font-weight:600;margin:.5em 0 .1em}
+.cover .course{color:var(--ink-soft);margin:0 0 1.8em;font-size:.95rem}
+.goals{border-left:3px solid var(--safranin);padding:2px 0 2px 18px;margin:0 0 30px}
+.goals h2{font-family:var(--sans);font-size:1rem;margin:0 0 4px;color:var(--safranin)}
+.goals ul{margin:0;padding-left:1.2em}
+.goals li{margin:2px 0}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-block;padding:10px 20px;border-radius:999px;text-decoration:none;font-weight:700;border:1.5px solid var(--green);color:var(--green);background:transparent;cursor:pointer}
+.btn.primary{background:var(--green);color:var(--on-green)}
+.cover-fig{margin:0;text-align:center}
+.cover-fig svg{width:100%;max-width:440px;height:auto}
+.cover-fig figcaption{font-size:.85rem;color:var(--ink-soft);margin-top:6px}
+.cover-fig .grow{animation:grow 1.1s cubic-bezier(.2,.7,.2,1) both}
+.cover-fig .ray{animation:fade 1s 1.5s both}
+@keyframes grow{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){.cover-fig .grow,.cover-fig .ray{animation:none}}
+@media (max-width:820px){.cover{grid-template-columns:1fr;gap:12px;padding-top:24px;min-height:0}.cover-fig{order:-1;max-width:300px;margin:0 auto}}
+
+/* chapters */
+main{max-width:1080px;margin:0 auto;padding:0 20px 96px}
+.chapter{padding:56px 0 16px;border-top:1px solid var(--rule)}
+.ch-head{display:flex;align-items:baseline;gap:14px;margin-bottom:10px}
+.ch-num{font-family:var(--serif);font-weight:900;color:var(--safranin);font-size:1.5rem;min-width:1.6em}
+h2.ch-title{font-family:var(--serif);font-weight:900;font-size:clamp(1.7rem,4vw,2.3rem);margin:0;line-height:1.3}
+h3{font-family:var(--serif);font-size:1.25rem;margin:1.8em 0 .4em;line-height:1.4}
+.prose{max-width:38em}
+.prose p{margin:0 0 1em}
+.term{color:var(--safranin);font-weight:700}
+.fig{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:22px;margin:26px 0}
+.fig-title{font-family:var(--serif);font-weight:600;font-size:1.08rem;margin:0 0 4px}
+.fig-cap{font-size:.86rem;color:var(--ink-soft);margin:12px 0 0}
+.hint{font-size:.88rem;color:var(--ink-soft);margin:0 0 14px}
+.aside{background:var(--green-pale);border-radius:12px;padding:16px 20px;margin:22px 0;max-width:38em}
+.aside h4{margin:0 0 4px;font-family:var(--serif);font-size:1.05rem}
+.aside p{margin:0}
+
+/* growth forms */
+.forms{display:grid;grid-template-columns:1fr 3fr;gap:16px;margin:24px 0}
+.form-card{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:14px 16px}
+.form-card svg{width:100%;height:92px;display:block;margin-bottom:6px}
+.form-card h4{margin:0;font-family:var(--serif);font-size:1.08rem}
+.form-card p{margin:2px 0 0;font-size:.9rem;line-height:1.65}
+.form-card .ex{color:var(--ink-soft);font-size:.84rem;margin-top:6px}
+.group{border:1.5px dashed var(--rule);border-radius:16px;padding:10px 12px 12px}
+.group-label{font-weight:700;color:var(--ink-soft);font-size:.88rem;margin:0 0 8px 4px}
+.group .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.herb-wrap{padding-top:36px}
+@media (max-width:760px){.forms{grid-template-columns:1fr}.herb-wrap{padding-top:0}.group .cards{grid-template-columns:1fr}}
+.meta-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:12px}
+.meta{background:var(--surface);border-radius:10px;padding:12px 14px;border:1px solid var(--rule)}
+.meta b{font-family:var(--serif)}
+.meta span{display:block;font-size:.88rem;line-height:1.65;color:var(--ink-soft)}
+
+/* viewer & figures */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tab{border:1.5px solid var(--rule);background:var(--panel);border-radius:999px;padding:5px 14px;cursor:pointer;font-size:.9rem}
+.tab[aria-selected="true"]{background:var(--green);border-color:var(--green);color:var(--on-green);font-weight:700}
+.vbody{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr);gap:22px;align-items:center}
+.vbody svg{width:100%;height:auto;display:block}
+.vbody .inset-wrap{position:relative}
+.vbody .inset-name{font-size:.82rem;color:var(--ink-soft);margin:0 0 4px}
+@media (max-width:720px){.vbody{grid-template-columns:1fr}}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--rule);background:var(--surface);border-radius:999px;padding:3px 11px 3px 7px;font-size:.85rem;cursor:pointer;line-height:1.6}
+.chip i{width:12px;height:12px;border-radius:50%;display:inline-block;border:1px solid rgba(0,0,0,.15)}
+.chip[aria-pressed="true"]{border-color:var(--hl);box-shadow:0 0 0 1px var(--hl)}
+.info{background:var(--panel);border-radius:12px;padding:14px 18px;margin-top:14px;min-height:5.4em}
+.info h4{margin:0;font-family:var(--serif);font-size:1.15rem}
+.info .tag{display:inline-block;font-family:var(--sans);font-size:.75rem;padding:0 9px;border-radius:999px;background:var(--safranin-pale);color:var(--safranin);margin-left:8px;vertical-align:middle;font-weight:500}
+.info p{margin:4px 0 0;font-size:.95rem}
+.info .empty{color:var(--ink-soft);font-size:.92rem;margin:0}
+[data-part]{cursor:pointer;transition:opacity .2s}
+.has-sel [data-part]:not(.sel){opacity:.28}
+.lbl text{font-size:13px;fill:var(--ink);paint-order:stroke;stroke:var(--surface);stroke-width:4px;stroke-linejoin:round;font-family:var(--sans);font-weight:500}
+.lbl text.sel{fill:var(--hl);font-weight:700}
+.lbl line,.lbl polyline{stroke:var(--ink-soft);stroke-width:1;fill:none}
+.ringnum{font-size:10px;fill:var(--ink);font-family:var(--sans);font-weight:700;pointer-events:none;paint-order:stroke;stroke:var(--surface);stroke-width:3px}
+.hide-labels .lbl{display:none}
+.toolrow{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.switch{display:inline-flex;align-items:center;gap:6px;font-size:.88rem;color:var(--ink-soft);cursor:pointer}
+.switch input{accent-color:var(--green);width:16px;height:16px}
+
+/* apex */
+.apex-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:24px;align-items:center}
+@media (max-width:720px){.apex-grid{grid-template-columns:1fr}}
+.branch-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:8px}
+.branch-grid figure{margin:0;text-align:center}
+.branch-grid svg{width:100%;height:auto;max-width:260px}
+.branch-grid figcaption{font-size:.88rem;line-height:1.6;text-align:left}
+.branch-grid figcaption b{font-family:var(--serif);display:block;font-size:1rem}
+input[type=range]{width:100%;accent-color:var(--green)}
+.slider-row{display:flex;align-items:center;gap:12px;margin:14px 0 4px}
+.slider-row label{white-space:nowrap;font-weight:700;font-size:.92rem}
+
+/* woody sim */
+.sim{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px;align-items:start}
+@media (max-width:760px){.sim{grid-template-columns:1fr}}
+.sim svg{width:100%;height:auto;display:block}
+.year-big{font-family:var(--serif);font-weight:900;font-size:2rem;color:var(--green);line-height:1.2;margin:0}
+.year-desc{margin:6px 0 14px;font-size:.95rem;min-height:5.6em}
+.bars{margin:6px 0 14px;font-size:.86rem}
+.bars .row{display:grid;grid-template-columns:4.5em 1fr 3.4em;align-items:center;gap:8px;margin:4px 0}
+.bars .track{background:var(--panel);height:12px;border-radius:6px;overflow:hidden}
+.bars .fill{height:100%;border-radius:6px;transition:width .4s}
+.ctrl{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn.sm{padding:6px 14px;font-size:.88rem}
+
+/* bark strip */
+.strip{display:grid;grid-template-columns:minmax(0,1fr) 74px 74px;column-gap:6px;margin-top:8px}
+.seg{display:flex;align-items:center;gap:12px;border:none;background:transparent;padding:2px 0;cursor:pointer;text-align:left;border-radius:6px}
+.seg .sw{width:56%;max-width:260px;height:100%;min-height:30px;border-radius:4px;border:1px solid rgba(0,0,0,.12)}
+.seg .nm{font-size:.92rem}
+.seg[aria-pressed="true"] .nm{color:var(--hl);font-weight:700}
+.seg[aria-pressed="true"] .sw{outline:2.5px solid var(--hl);outline-offset:1px}
+.brk{border-right:2px solid var(--ink-soft);border-top:2px solid var(--ink-soft);border-bottom:2px solid var(--ink-soft);border-radius:0 8px 8px 0;margin:4px 0;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:.85rem;font-weight:700;color:var(--ink-soft);writing-mode:vertical-rl;text-orientation:upright;letter-spacing:.1em}
+
+/* rings */
+.ring-sim{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:26px;align-items:start}
+@media (max-width:760px){.ring-sim{grid-template-columns:1fr}}
+.ring-sim svg{width:100%;height:auto;max-width:360px;display:block;margin:0 auto}
+.seg-ctl{display:inline-flex;border:1.5px solid var(--rule);border-radius:999px;overflow:hidden;margin-bottom:12px}
+.seg-ctl button{border:none;background:transparent;padding:5px 14px;cursor:pointer;font-size:.9rem}
+.seg-ctl button[aria-pressed="true"]{background:var(--green);color:var(--on-green);font-weight:700}
+.readout{font-size:.95rem;margin:12px 0}
+.yearbars{display:flex;align-items:flex-end;gap:3px;height:70px;border-bottom:1px solid var(--rule);margin-top:8px}
+.yearbars div{flex:1;max-width:22px;border-radius:3px 3px 0 0}
+.cells svg{width:100%;height:auto;display:block}
+
+table.cmp{border-collapse:collapse;width:100%;font-size:.94rem;margin:8px 0}
+.table-wrap{overflow-x:auto}
+table.cmp th,table.cmp td{border-bottom:1px solid var(--rule);padding:10px 12px;text-align:left;vertical-align:top;min-width:8em}
+table.cmp thead th{font-family:var(--serif);border-bottom:2px solid var(--ink-soft)}
+table.cmp tbody th{font-weight:700;color:var(--ink-soft);white-space:nowrap}
+details.think{background:var(--safranin-pale);border-radius:12px;padding:14px 18px;margin:22px 0;max-width:40em}
+details.think summary{cursor:pointer;font-weight:700;list-style-position:outside}
+details.think p{margin:8px 0 0}
+
+/* worksheet */
+.ws-head{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.score{font-family:var(--serif);font-weight:900;font-size:1.4rem;color:var(--green)}
+.part-title{font-family:var(--serif);font-size:1.2rem;margin:36px 0 6px}
+.q{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:16px 18px;margin:12px 0}
+.q .stem{margin:0 0 10px;font-weight:500}
+.q .stem b{color:var(--green);margin-right:6px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px}
+.opt{text-align:left;padding:9px 14px;border:1.5px solid var(--rule);border-radius:10px;background:var(--panel);cursor:pointer;line-height:1.55}
+.opt:disabled{cursor:default}
+.opt.right{border-color:var(--green);background:var(--green-pale)}
+.opt.wrong{border-color:var(--safranin);background:var(--safranin-pale)}
+.explain{margin:10px 0 0;font-size:.92rem;line-height:1.7}
+.explain b.ok{color:var(--green)} .explain b.no{color:var(--safranin)}
+.label-grid{display:grid;grid-template-columns:minmax(0,260px) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:640px){.label-grid{grid-template-columns:1fr}}
+.label-grid svg{width:100%;height:auto;display:block}
+.lab-row{display:flex;align-items:center;gap:10px;margin:6px 0}
+.lab-row .n{width:26px;height:26px;border-radius:50%;background:var(--ink);color:var(--surface);display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:.85rem;flex:none}
+.lab-row select{font:inherit;padding:5px 8px;border-radius:8px;border:1.5px solid var(--rule);background:var(--panel);color:var(--ink);min-width:10em}
+.lab-row select.right{border-color:var(--green)} .lab-row select.wrong{border-color:var(--safranin)}
+.lab-row .mk{font-size:.85rem}
+.order-list{list-style:none;padding:0;margin:8px 0;max-width:420px}
+.order-list li{display:flex;align-items:center;gap:8px;background:var(--panel);border:1.5px solid var(--rule);border-radius:10px;padding:6px 8px 6px 14px;margin:6px 0}
+.order-list li span{flex:1}
+.order-list li.right{border-color:var(--green)} .order-list li.wrong{border-color:var(--safranin)}
+.mv{border:1px solid var(--rule);background:var(--surface);border-radius:8px;width:32px;height:30px;cursor:pointer}
+.mv:disabled{opacity:.35;cursor:default}
+textarea{width:100%;min-height:90px;font:inherit;padding:10px 12px;border:1.5px solid var(--rule);border-radius:10px;background:var(--panel);color:var(--ink);resize:vertical}
+.ref{display:none;margin-top:10px;padding:10px 14px;border-left:3px solid var(--green);background:var(--green-pale);border-radius:0 8px 8px 0;font-size:.93rem}
+.ref.show{display:block}
+[hidden]{display:none!important}
+.theme-btn{flex:none;width:38px;height:38px;border-radius:50%;border:1px solid var(--rule);background:var(--surface);cursor:pointer;font-size:1.05rem;line-height:1}
+.ws-tabs{margin:16px 0 4px}
+.dl-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:8px 0 6px;font-size:.92rem;color:var(--ink-soft)}
+.opt[aria-pressed="true"]{border-color:var(--hl);box-shadow:0 0 0 1px var(--hl);background:var(--surface)}
+.id-row{display:flex;gap:16px;flex-wrap:wrap}
+.id-row label{display:flex;flex-direction:column;font-size:.9rem;font-weight:700;gap:4px}
+.id-row input{font:inherit;font-weight:400;padding:7px 10px;border:1.5px solid var(--rule);border-radius:8px;background:var(--panel);color:var(--ink);width:12em;max-width:100%}
+.result{background:var(--green-pale);border-radius:12px;padding:14px 18px;margin:16px 0}
+.result p{margin:2px 0}
+.stats{display:flex;gap:28px;flex-wrap:wrap;margin:10px 0 18px}
+.stat{font-size:.86rem;color:var(--ink-soft)}
+.stat b{display:block;font-family:var(--serif);font-size:1.6rem;color:var(--green);line-height:1.3}
+.rates{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:4px 24px;margin:8px 0 20px}
+.rate-row{display:grid;grid-template-columns:4.2em 1fr 3.2em;gap:8px;align-items:center;font-size:.86rem}
+.rate-row .track{background:var(--panel);height:10px;border-radius:5px;overflow:hidden}
+.rate-row .fill{height:100%;border-radius:5px}
+table.rec td,table.rec th{min-width:0;white-space:nowrap}
+table.rec td.open{white-space:normal;min-width:14em}
+.teacher-badge{display:inline-block;font-size:.78rem;padding:1px 10px;border-radius:999px;background:var(--safranin-pale);color:var(--safranin);font-weight:700;margin-left:10px;vertical-align:middle}
+footer{max-width:1080px;margin:0 auto;padding:24px 20px 48px;font-size:.82rem;color:var(--ink-soft);border-top:1px solid var(--rule)}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#cover">莖的構造</a>
+    <nav class="nav" aria-label="章節">
+      <a href="#outside">外部構造</a>
+      <a href="#apex">莖頂</a>
+      <a href="#herb">雙子葉草本莖</a>
+      <a href="#woody">木本莖加粗</a>
+      <a href="#rings">年輪</a>
+      <a href="#monocot">單子葉莖</a>
+      <a href="#worksheet">學習單</a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="切換為深色">🌙</button>
+  </div>
+</header>
+
+<section class="cover" id="cover">
+  <div>
+    <h1>莖</h1>
+    <p class="sub">莖的構造</p>
+    <p class="course">選修生物 II｜第 2 章 植物體的構造與功能｜2-2-2</p>
+    <div class="goals">
+      <h2>學完這一節，你將能夠</h2>
+      <ul>
+        <li>依質地區分草本莖與木本莖，並辨認喬木、灌木與木質藤本</li>
+        <li>說出莖頂由上而下的分區，以及枝條與支根來源的差異</li>
+        <li>比較雙子葉與單子葉植物莖的橫切面構造</li>
+        <li>解釋木本莖加粗、樹皮形成與年輪出現的原因</li>
+      </ul>
+    </div>
+    <div class="btns">
+      <a class="btn primary" href="#outside">開始閱讀</a>
+      <a class="btn" href="#worksheet">直接寫學習單</a>
+    </div>
+  </div>
+  <figure class="cover-fig">
+    <svg id="coverSvg" viewBox="-160 -160 320 320" role="img" aria-label="木本莖橫切面示意圖，可見一圈圈年輪"></svg>
+    <figcaption>雙子葉木本莖橫切面示意：一圈圈深淺交替的環紋，就是年輪</figcaption>
+  </figure>
+</section>
+
+<main>
+
+<!-- 1 外部構造 -->
+<section class="chapter" id="outside">
+  <div class="ch-head"><span class="ch-num">1</span><h2 class="ch-title">莖的外部構造</h2></div>
+  <div class="prose">
+    <p>依照質地，莖可分為<strong class="term">草本莖</strong>與<strong class="term">木本莖</strong>，被子植物也大致據此分成草本植物和木本植物。兩者最關鍵的差別，在於莖有沒有發生木質化。</p>
+  </div>
+  <div class="aside">
+    <h4>什麼是木質化？</h4>
+    <p>細胞產生的木質素逐漸沉積在細胞壁中，讓細胞壁變得堅硬，莖的支持力因此增強。</p>
+  </div>
+
+  <div class="forms">
+    <div class="herb-wrap">
+      <div class="form-card">
+        <svg viewBox="0 0 120 92" aria-hidden="true"><g stroke="var(--green)" stroke-width="3" fill="none" stroke-linecap="round"><path d="M60 88 C58 60 52 40 40 22"/><path d="M60 88 C62 58 70 36 84 18"/><path d="M60 88 C60 62 60 44 60 26"/><path d="M60 88 C54 70 40 58 24 50"/><path d="M60 88 C68 70 82 60 98 54"/></g><line x1="10" y1="88" x2="110" y2="88" stroke="var(--rule)" stroke-width="2"/></svg>
+        <h4>草本植物</h4>
+        <p>莖纖細柔軟，沒有木質化，植株高度通常較受限制。</p>
+        <p class="ex">例：水稻、菠菜</p>
+      </div>
+    </div>
+    <div class="group">
+      <p class="group-label">木本植物：莖明顯木質化，通常較高大、支持力強</p>
+      <div class="cards">
+        <div class="form-card">
+          <svg viewBox="0 0 120 92" aria-hidden="true"><rect x="55" y="34" width="10" height="54" rx="2" fill="var(--t-late)"/><ellipse cx="60" cy="26" rx="34" ry="20" fill="var(--green)"/><line x1="10" y1="88" x2="110" y2="88" stroke="var(--rule)" stroke-width="2"/></svg>
+          <h4>喬木</h4>
+          <p>有明顯的主幹，離地面相當高處才開始分枝。</p>
+          <p class="ex">例：榕樹、楓香、蒲葵、大王椰子</p>
+        </div>
+        <div class="form-card">
+          <svg viewBox="0 0 120 92" aria-hidden="true"><g stroke="var(--t-late)" stroke-width="4" stroke-linecap="round"><path d="M60 88 L42 52"/><path d="M60 88 L60 48"/><path d="M60 88 L80 54"/><path d="M60 88 L28 66"/><path d="M60 88 L92 68"/></g><g fill="var(--green)"><circle cx="40" cy="48" r="14"/><circle cx="60" cy="42" r="15"/><circle cx="82" cy="50" r="14"/><circle cx="26" cy="64" r="11"/><circle cx="94" cy="66" r="11"/></g><line x1="10" y1="88" x2="110" y2="88" stroke="var(--rule)" stroke-width="2"/></svg>
+          <h4>灌木</h4>
+          <p>沒有明顯的主幹，從莖的基部就分枝或叢生。</p>
+          <p class="ex">例：馬纓丹</p>
+        </div>
+        <div class="form-card">
+          <svg viewBox="0 0 120 92" aria-hidden="true"><rect x="54" y="6" width="12" height="82" fill="var(--rule)"/><path d="M60 88 C40 80 80 70 60 62 C40 54 80 46 60 38 C40 30 80 22 60 12" stroke="var(--t-late)" stroke-width="4" fill="none" stroke-linecap="round"/><g fill="var(--green)"><ellipse cx="44" cy="70" rx="7" ry="4"/><ellipse cx="77" cy="50" rx="7" ry="4"/><ellipse cx="43" cy="30" rx="7" ry="4"/></g><line x1="10" y1="88" x2="110" y2="88" stroke="var(--rule)" stroke-width="2"/></svg>
+          <h4>木質藤本</h4>
+          <p>莖多呈蔓藤狀，常攀附在其他物體上生長。</p>
+          <p class="ex">例：血藤、薜荔</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>延伸：莖的多樣性</h3>
+  <div class="prose"><p>有些植物的莖除了典型的支持與運輸功能外，還演變成其他形態，具有特殊功能，稱為<strong class="term">變態莖</strong>。</p></div>
+  <div class="meta-grid">
+    <div class="meta"><b>馬鈴薯、芋頭</b><span>莖長在土壤中，用來儲存養分。</span></div>
+    <div class="meta"><b>蛇莓的走莖</b><span>橫躺在地表延伸，擴大植物體的範圍，節上可長出新個體。</span></div>
+    <div class="meta"><b>薑的根莖</b><span>在土中橫向生長，可長出新芽，內部儲藏大量養分。</span></div>
+    <div class="meta"><b>蓮的地下莖（蓮藕）</b><span>在池塘泥中橫走延伸，可長出新芽，也儲藏大量養分。</span></div>
+  </div>
+</section>
+
+<!-- 2.1 莖頂 -->
+<section class="chapter" id="apex">
+  <div class="ch-head"><span class="ch-num">2.1</span><h2 class="ch-title">莖頂的縱切面</h2></div>
+  <div class="prose">
+    <p>草本莖與木本莖的莖頂縱切面，基本構造相同。由上往下依序為<strong class="term">生長點</strong>（頂端分生組織）、<strong class="term">延長部</strong>與<strong class="term">成熟部</strong>。</p>
+  </div>
+  <div class="fig">
+    <p class="fig-title">互動圖：莖頂縱切面</p>
+    <p class="hint">點選圖中的區域或下方按鈕，看看每一區的細胞在做什麼。</p>
+    <div class="apex-grid" id="apexBox">
+      <svg id="apexSvg" viewBox="0 0 340 400" role="img" aria-label="莖頂縱切面示意圖"></svg>
+      <div>
+        <div class="chips" id="apexChips" style="margin-top:0"></div>
+        <div class="info" id="apexInfo"><p class="empty">點選一個區域，查看它的特徵與功能。</p></div>
+      </div>
+    </div>
+  </div>
+
+  <h3>莖的枝條與根的支根，從哪裡長出來？</h3>
+  <div class="prose">
+    <p>莖的枝條、葉或花，都由莖側芽中的頂端分生組織發育而來。側芽本來就位在莖的表面，所以長出時不會破壞任何組織。根則不同：支根源自根部深處的<strong class="term">周鞘</strong>，必須從中柱向外推進，穿過皮層和表皮才能伸出。</p>
+  </div>
+  <div class="fig">
+    <p class="fig-title">互動圖：比較分枝的來源</p>
+    <div class="slider-row"><label for="branchRange">生長進度</label><input type="range" id="branchRange" min="0" max="100" value="0"></div>
+    <div class="branch-grid">
+      <figure><svg id="stemBranch" viewBox="0 0 240 200" role="img" aria-label="莖的側芽長出枝條"></svg><figcaption><b>莖：外生</b>枝條由表面的側芽長出，表面組織保持完整。</figcaption></figure>
+      <figure><svg id="rootBranch" viewBox="0 0 240 200" role="img" aria-label="根的周鞘長出支根"></svg><figcaption><b>根：內生</b>支根從深處的周鞘產生，向外穿破皮層與表皮。</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 2.2 雙子葉草本莖 -->
+<section class="chapter" id="herb">
+  <div class="ch-head"><span class="ch-num">2.2</span><h2 class="ch-title">雙子葉草本莖的橫切面</h2></div>
+  <div class="prose">
+    <p>雙子葉草本莖的橫切面，由外向內依序是<strong class="term">表皮</strong>、<strong class="term">皮層</strong>、<strong class="term">維管束</strong>和<strong class="term">髓</strong>。維管束排成一圈，每個維管束由外而內為韌皮部、維管束形成層與木質部。</p>
+  </div>
+  <div class="fig">
+    <p class="fig-title">互動圖：雙子葉植物（苜蓿）草本莖橫切面</p>
+    <p class="hint">左圖是整個橫切面，右圖放大其中一個維管束。點選任一構造查看說明，也可以關閉名稱來自我測驗。</p>
+    <div id="herbViewer"></div>
+  </div>
+  <div class="aside">
+    <h4>為什麼草本莖不太會變粗？</h4>
+    <p>雖然維管束形成層可以向內產生木質部、向外產生韌皮部，但草本植物受到本身生長或壽命的限制，形成層通常無法產生大量維管組織，所以莖的直徑增加並不明顯。</p>
+  </div>
+</section>
+
+<!-- 2.3 木本莖 -->
+<section class="chapter" id="woody">
+  <div class="ch-head"><span class="ch-num">2.3</span><h2 class="ch-title">雙子葉木本莖如何逐年加粗</h2></div>
+  <div class="prose">
+    <p>木本植物的幼莖，構造和草本莖相似。不同的是，它的維管束形成層會年復一年地分裂：向外產生韌皮部、向內產生木質部，使莖的直徑持續加粗。</p>
+    <p>莖變粗後，表皮被撐破而失去保護作用。此時外側的皮層細胞轉變為具有分裂能力的<strong class="term">木栓形成層</strong>，向內產生木栓皮層，向外產生木栓細胞，構成<strong class="term">木栓層</strong>（cork）。木栓層不透水也不透氣，取代表皮負責保護與防止水分散失；莖與外界的氣體交換，就改由樹皮表面的<strong class="term">皮孔</strong>進行。</p>
+  </div>
+  <div class="fig">
+    <p class="fig-title">模擬：讓一段木本莖長大</p>
+    <p class="hint">拖曳滑桿或按「播放」，觀察每一年莖的橫切面如何變化。點選圖例可以標示出該構造。</p>
+    <div class="sim" id="woodyBox">
+      <svg id="woodySvg" viewBox="-195 -195 390 390" role="img" aria-label="木本莖逐年加粗的橫切面模擬"></svg>
+      <div>
+        <p class="year-big" id="yearBig">幼莖</p>
+        <div class="slider-row" style="margin-top:4px"><input type="range" id="yearRange" min="0" max="5" value="0" step="1" aria-label="生長年數"><button class="btn sm" id="playBtn" type="button">播放</button></div>
+        <p class="year-desc" id="yearDesc"></p>
+        <div class="bars" aria-live="polite">
+          <div class="row"><span>木質部</span><div class="track"><div class="fill" id="barX" style="background:var(--t-late)"></div></div><span id="numX"></span></div>
+          <div class="row"><span>韌皮部</span><div class="track"><div class="fill" id="barP" style="background:var(--t-phloem)"></div></div><span id="numP"></span></div>
+        </div>
+        <div class="chips" id="woodyChips"></div>
+        <div class="info" id="woodyInfo"><p class="empty">點選圖例，查看構造說明。</p></div>
+      </div>
+    </div>
+    <p class="fig-cap">示意圖：各層厚度經過簡化，數字 1、2、3…標示各年產生的木質部。</p>
+  </div>
+
+  <h3>樹皮、周皮與木材</h3>
+  <div class="prose">
+    <p>維管束形成層以外的部分統稱為<strong class="term">樹皮</strong>，是樹幹的保護層，由外而內為表皮、木栓層、木栓形成層、木栓皮層和韌皮部。其中木栓層、木栓形成層與木栓皮層合稱<strong class="term">周皮</strong>，也屬於表皮組織系統。</p>
+    <p>形成層向內產生木質部的速度，比向外產生韌皮部快，所以莖的內部大多是木質部，俗稱<strong class="term">木材</strong>。新長出的組織會擠壓舊組織：韌皮部大多是薄壁細胞，容易被擠壓變形；木質部大多是厚壁細胞，不易變形而愈堆愈厚。因此在多年生的木本莖中，韌皮部所占的比例愈來愈少。</p>
+    <p>木材中，較外側的木質部是新生細胞，含水較多、顏色較淡，仍能輸送水分與無機鹽類，稱為<strong class="term">邊材</strong>；內側的老化細胞堆積大量填充物、顏色較深，已不具運輸作用，主要負責支持，稱為<strong class="term">心材</strong>。</p>
+  </div>
+  <div class="fig">
+    <p class="fig-title">互動圖：從樹皮到心材，由外而內</p>
+    <p class="hint">點選任一層查看說明。右側括號標出各層的統稱。</p>
+    <div class="strip" id="barkStrip"></div>
+    <div class="info" id="barkInfo"><p class="empty">點選一層，查看它的特徵。</p></div>
+  </div>
+</section>
+
+<!-- 2.4 年輪 -->
+<section class="chapter" id="rings">
+  <div class="ch-head"><span class="ch-num">2.4</span><h2 class="ch-title">早材、晚材與年輪</h2></div>
+  <div class="prose">
+    <p>在四季分明的溫帶，或乾季、雨季交替明顯的地區，形成層產生的木質部細胞會隨季節改變。生長季節前期（通常是春初或雨季）產生的細胞較大、細胞壁較薄，木材顏色淺，稱為<strong class="term">早材</strong>；生長季節末期（通常是夏末秋初或乾季）產生的細胞較小、細胞壁較厚，顏色深，稱為<strong class="term">晚材</strong>。</p>
+    <p>季節一年年更替，木材橫切面上就出現深淺交替的同心環紋，稱為<strong class="term">年輪</strong>。數年輪的層數可以推測樹齡，從年輪的寬窄可以推測當年的氣候。熱帶地區四季變化不明顯，樹木通常沒有明顯的年輪。</p>
+  </div>
+  <div class="fig cells">
+    <p class="fig-title">放大看：三年的木質部細胞</p>
+    <svg id="cellSvg" viewBox="0 0 640 170" role="img" aria-label="早材細胞大而壁薄，晚材細胞小而壁厚"></svg>
+    <p class="fig-cap">早材細胞大、壁薄，看起來顏色淺；晚材細胞小、壁厚，看起來顏色深。晚材與下一年早材的交界，就是年輪的分界線。</p>
+  </div>
+  <div class="fig">
+    <p class="fig-title">模擬：種一棵樹，看它留下的年輪</p>
+    <p class="hint">選擇生長地區，再一年一年讓樹長大。每一年的天氣，都會寫進年輪裡。</p>
+    <div class="ring-sim">
+      <svg id="ringSvg" viewBox="-150 -150 300 300" role="img" aria-label="年輪模擬圖"></svg>
+      <div>
+        <div class="seg-ctl" role="group" aria-label="生長地區">
+          <button type="button" data-clim="temperate" aria-pressed="true">溫帶</button>
+          <button type="button" data-clim="tropical" aria-pressed="false">熱帶</button>
+        </div>
+        <div class="ctrl">
+          <button class="btn sm primary" type="button" id="wetBtn">長一年：氣候良好</button>
+          <button class="btn sm" type="button" id="dryBtn">長一年：乾旱寒冷</button>
+          <button class="btn sm" type="button" id="resetBtn">重新種一棵</button>
+        </div>
+        <p class="readout" id="ringRead" aria-live="polite"></p>
+        <p class="hint" style="margin:0">每年木質部增加的寬度</p>
+        <div class="yearbars" id="yearBars"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2.5 單子葉 -->
+<section class="chapter" id="monocot">
+  <div class="ch-head"><span class="ch-num">2.5</span><h2 class="ch-title">單子葉植物的莖</h2></div>
+  <div class="prose">
+    <p>單子葉植物的莖大多是草本莖，多為一年生或兩年生，例如水稻、玉米。橫切面包括表皮、基本組織和維管束：最外層是排列緊密的表皮，表皮內是由薄壁細胞構成的基本組織，維管束則<strong class="term">散生</strong>在基本組織中，而且越靠近表皮分布越密集。</p>
+    <p>每個維管束朝向中心的一側是木質部、朝外的一側是韌皮部，兩者之間<strong class="term">沒有維管束形成層</strong>，所以莖通常無法逐年加粗。即使是多年生木本的單子葉植物，如孟宗竹和大王椰子，樹幹也上下粗細相近，不像雙子葉樹木下粗上細。</p>
+    <p>水稻、竹子、五節芒等植物，莖的內外生長速度不同，形成中空的<strong class="term">髓腔</strong>，有助於氣體流通，擴散進出細胞。</p>
+  </div>
+  <div class="fig">
+    <p class="fig-title">互動圖：單子葉植物莖的橫切面</p>
+    <p class="hint">切換不同植物比較看看。右圖放大一個單子葉植物的維管束。</p>
+    <div id="monoViewer"></div>
+  </div>
+
+  <h3>雙子葉莖與單子葉莖的比較</h3>
+  <div class="table-wrap">
+    <table class="cmp">
+      <thead><tr><th scope="col">比較項目</th><th scope="col">雙子葉植物的莖</th><th scope="col">單子葉植物的莖</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">維管束排列</th><td>排成一圈（環狀）</td><td>散生，靠近表皮處較密集</td></tr>
+        <tr><th scope="row">維管束形成層</th><td>有</td><td>沒有（或不發達）</td></tr>
+        <tr><th scope="row">逐年加粗</th><td>木本植物可以</td><td>通常不能</td></tr>
+        <tr><th scope="row">樹幹外形</th><td>下粗上細</td><td>上下粗細相近</td></tr>
+        <tr><th scope="row">內部組織</th><td>皮層、髓分明</td><td>表皮以內為基本組織，部分種類有中空髓腔</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <details class="think">
+    <summary>想一想：椰子樹又高又大，為什麼樹幹橫切面看不到年輪？</summary>
+    <p>先自己想想看，再展開下方提示。</p>
+    <p><b>參考想法：</b>椰子樹是單子葉植物，莖中沒有維管束形成層，不會每年在外圍增生一圈新的木質部，也就不會出現早材、晚材交替的環紋。加上椰子樹多生長在熱帶，季節變化本來就不明顯。</p>
+  </details>
+</section>
+
+<!-- 學習單 -->
+<section class="chapter" id="worksheet">
+  <div class="ch-head"><span class="ch-num">✎</span><h2 class="ch-title">學習單</h2></div>
+  <div class="tabs ws-tabs" role="tablist" aria-label="作答方式">
+    <button class="tab" type="button" role="tab" aria-selected="true" data-pane="practicePane">練習模式：逐題看解說</button>
+    <button class="tab" type="button" role="tab" aria-selected="false" data-pane="examPane">測驗模式：做完再對答案</button>
+  </div>
+  <div class="dl-row" id="dlRow" hidden>
+    <span>想印出來在紙上寫？</span>
+    <button class="btn sm" type="button" id="dlSheet">下載紙本學習單</button>
+    <button class="btn sm" type="button" id="dlKey">下載解答</button>
+    <span id="dlMsg" aria-live="polite"></span>
+  </div>
+
+  <div id="practicePane" role="tabpanel">
+    <div class="ws-head">
+      <p class="hint" style="margin:8px 0 0">選擇題作答後會立即顯示解說；標示題和排序題完成後按「檢查答案」。</p>
+      <div class="score" aria-live="polite">得分 <span id="score">0</span> / 18</div>
+    </div>
+    <h3 class="part-title">一、選擇題</h3>
+    <div id="mcBox"></div>
+    <h3 class="part-title">二、標示題：雙子葉草本莖的維管束附近</h3>
+    <div class="q">
+      <p class="stem">請替圖中編號 1～7 的構造選出正確名稱。</p>
+      <div class="label-grid">
+        <svg id="labelSvg" viewBox="0 0 260 300" role="img" aria-label="雙子葉草本莖維管束放大圖，標有編號 1 到 7"></svg>
+        <div id="labelRows"></div>
+      </div>
+      <div class="ctrl" style="margin-top:12px"><button class="btn sm primary" type="button" id="labelCheck">檢查答案</button><button class="btn sm" type="button" id="labelReset">重做</button></div>
+      <p class="explain" id="labelMsg"></p>
+    </div>
+    <h3 class="part-title">三、排序題：樹皮由外而內</h3>
+    <div class="q">
+      <p class="stem">用箭頭調整順序，把雙子葉木本莖的樹皮構造由「最外層」排到「最內層」。</p>
+      <ol class="order-list" id="orderList"></ol>
+      <div class="ctrl"><button class="btn sm primary" type="button" id="orderCheck">檢查答案</button></div>
+      <p class="explain" id="orderMsg"></p>
+    </div>
+    <h3 class="part-title">四、思考題</h3>
+    <div id="openBox"></div>
+  </div>
+
+  <div id="examPane" role="tabpanel" hidden>
+    <div class="q">
+      <p class="stem">測驗模式會一次作答全部題目，交卷後才顯示答案與解說。交卷時，你的作答紀錄會送給老師。</p>
+      <div class="id-row">
+        <label>班級座號<input id="exSeat" type="text" autocomplete="off" placeholder="例：201-15"></label>
+        <label>姓名<input id="exName" type="text" autocomplete="off" placeholder="你的姓名"></label>
+      </div>
+      <p class="hint" id="exPerm" style="margin:10px 0 0"></p>
+    </div>
+    <div id="examBox"></div>
+    <div class="ctrl" style="margin-top:18px">
+      <button class="btn primary" type="button" id="exSubmit">交卷並對答案</button>
+      <button class="btn" type="button" id="exRetry" hidden>重新作答</button>
+    </div>
+    <div id="exResult" aria-live="polite"></div>
+  </div>
+</section>
+
+<section class="chapter" id="teacher" hidden>
+  <div class="ch-head"><span class="ch-num">⌂</span><h2 class="ch-title">教師專區：全班作答紀錄<span class="teacher-badge">只有編輯者看得到</span></h2></div>
+  <p class="hint">學生在測驗模式交卷後，紀錄會即時出現在這裡。每位學生只保留最後一次作答。</p>
+  <div class="stats" id="tStats"></div>
+  <h3 class="part-title" style="margin-top:8px">各題答對率</h3>
+  <div class="rates" id="tRates"></div>
+  <div class="toolrow"><h3 class="part-title" style="margin:0">學生名單</h3><button class="btn sm" type="button" id="tCsv" hidden>下載成績 CSV</button></div>
+  <div class="table-wrap"><table class="cmp rec" id="tTable"></table></div>
+  <p class="hint" id="tEmpty">目前還沒有學生交卷。</p>
+</section>
+</main>
+
+<footer>本頁為依據課本單元內容改寫的練習教材，所有圖片皆為簡化示意圖，非實際顯微照片。</footer>
+
+<script>
+const NS="http://www.w3.org/2000/svg";
+function S(tag,attrs,parent){const e=document.createElementNS(NS,tag);if(attrs)for(const k in attrs){if(k==="text")e.textContent=attrs[k];else e.setAttribute(k,attrs[k]);}if(parent)parent.appendChild(e);return e;}
+function H(tag,attrs,parent){const e=document.createElement(tag);if(attrs)for(const k in attrs){if(k==="text")e.textContent=attrs[k];else if(k==="html")e.innerHTML=attrs[k];else e.setAttribute(k,attrs[k]);}if(parent)parent.appendChild(e);return e;}
+const P=(r,deg)=>{const a=deg*Math.PI/180;return [r*Math.sin(a),-r*Math.cos(a)];};
+const reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let uid=0;
+function cellPat(defs,size,fillVar,lineVar,rf){const id="p"+(++uid);const p=S("pattern",{id,width:size,height:size,patternUnits:"userSpaceOnUse"},defs);S("rect",{width:size,height:size,style:`fill:var(${fillVar})`},p);S("circle",{cx:size/2,cy:size/2,r:size*(rf||.42),style:`fill:none;stroke:var(${lineVar});stroke-width:1`},p);return `url(#${id})`;}
+function arcPath(r,a1,a2){const [x1,y1]=P(r,a1),[x2,y2]=P(r,a2);const large=(a2-a1)>180?1:0;return `M${x1.toFixed(2)} ${y1.toFixed(2)} A${r} ${r} 0 ${large} 1 ${x2.toFixed(2)} ${y2.toFixed(2)}`;}
+
+/* ---------- theme toggle (light by default) ---------- */
+(function(){
+  const btn=document.getElementById("themeBtn"),root=document.documentElement;
+  let saved=null;try{saved=localStorage.getItem("stem-theme");}catch(e){}
+  if(saved==='dark'||saved==='light')root.setAttribute("data-theme",saved);
+  const sync=()=>{const dark=root.getAttribute("data-theme")==="dark";btn.textContent=dark?"☀️":"🌙";btn.setAttribute("aria-label",dark?"切換為淺色":"切換為深色");};
+  sync();
+  btn.onclick=()=>{const next=root.getAttribute("data-theme")==="dark"?"light":"dark";root.setAttribute("data-theme",next);try{localStorage.setItem("stem-theme",next);}catch(e){}sync();};
+  new MutationObserver(sync).observe(root,{attributes:true,attributeFilter:["data-theme"]});
+})();
+
+/* ---------- cover ---------- */
+(function(){
+  const svg=document.getElementById("coverSvg");
+  const widths=[14,19,12,22,10,18,15,12,9];
+  let r=10;const rings=[];widths.forEach(w=>{rings.push([r,r+w,w]);r+=w;});
+  const xo=r, nRing=rings.length;
+  const layers=[];
+  layers.push({r:xo+17,f:"--t-cork"});layers.push({r:xo+7,f:"--t-phloem"});layers.push({r:xo+3,f:"--t-cambium"});
+  for(let k=nRing-1;k>=0;k--){const [a,b,w]=rings[k];const heart=k<4;layers.push({r:b,f:heart?"--t-heart":"--t-late",i:k});layers.push({r:b-w*.32,f:heart?"--t-heart-e":"--t-early",i:k});}
+  layers.push({r:10,f:"--t-pith",i:-1});
+  layers.forEach(L=>{const idx=L.i===undefined?nRing+1:L.i+1;S("circle",{r:L.r,class:"grow",style:`fill:var(${L.f});animation-delay:${(idx*0.12).toFixed(2)}s`},svg);});
+  const g=S("g",{class:"ray"},svg);
+  for(let i=0;i<30;i++){const a=i*12+(i%2)*4;const [x1,y1]=P(10,a),[x2,y2]=P(xo+6,a);S("line",{x1,y1,x2,y2,style:"stroke:var(--t-ray);stroke-width:1"},g);}
+})();
+
+/* ---------- nav highlight ---------- */
+(function(){
+  const links=[...document.querySelectorAll(".nav a")];
+  const map={};links.forEach(a=>map[a.getAttribute("href").slice(1)]=a);
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove("on"));const a=map[e.target.id];if(a){a.classList.add("on");const nav=a.parentElement;const l=a.offsetLeft,r=l+a.offsetWidth;if(l<nav.scrollLeft||r>nav.scrollLeft+nav.clientWidth)nav.scrollLeft=l-16;}}});},{rootMargin:"-45% 0px -50% 0px"});
+  document.querySelectorAll("section[id]").forEach(s=>io.observe(s));
+  const h=location.hash.slice(1);if(h&&document.getElementById(h)){setTimeout(()=>document.getElementById(h).scrollIntoView(),60);}
+})();
+
+/* ---------- parts dictionary ---------- */
+const PARTS={
+  epi:{n:"表皮",t:"表皮組織",d:"最外層，細胞排列緊密，外側常有角質層，能減少水分散失並保護內部。",c:"--t-epi"},
+  cortex:{n:"皮層",t:"基本組織",d:"位於表皮內側，由排列較疏鬆的薄壁細胞組成，可儲存養分與水分。",c:"--t-cortex"},
+  pith:{n:"髓",t:"基本組織",d:"位於莖的中央，同樣由薄壁細胞組成，可儲存養分與水分。",c:"--t-pith"},
+  fiber:{n:"韌皮纖維",t:"厚壁細胞",d:"韌皮部外側的厚壁細胞群，細胞壁厚而堅韌，提供支持。",c:"--t-fiber"},
+  phloem:{n:"韌皮部",t:"維管束",d:"位於維管束外側，負責運輸有機養分。",c:"--t-phloem"},
+  cambium:{n:"維管束形成層",t:"可分裂的細胞",d:"夾在韌皮部與木質部之間的一至數層細胞，能向內產生木質部、向外產生韌皮部。",c:"--t-cambium"},
+  xylem:{n:"木質部",t:"維管束",d:"位於維管束內側，負責運輸水分與無機鹽類；其中的木質纖維由厚壁細胞構成，具支持功能。",c:"--t-xylem"},
+  ground:{n:"基本組織",t:"基本組織",d:"由薄壁細胞構成，填滿表皮以內的空間，維管束散生在其中。",c:"--t-cortex"},
+  mbundle:{n:"維管束",t:"散生",d:"散生在基本組織中，越靠近表皮分布越密集。朝中心的一側是木質部、朝外的一側是韌皮部，兩者之間沒有維管束形成層。",c:"--t-fiber"},
+  mphloem:{n:"韌皮部",t:"維管束",d:"位於維管束朝外（離心）的一側，含篩管與伴細胞，負責運輸有機養分。",c:"--t-phloem"},
+  sieve:{n:"篩管",t:"韌皮部",d:"韌皮部中運送有機養分的管狀細胞。",c:"--t-phloem"},
+  companion:{n:"伴細胞",t:"韌皮部",d:"緊貼在篩管旁的小型細胞，協助篩管運作。",c:"--t-phloem-line"},
+  mxylem:{n:"木質部",t:"維管束",d:"位於維管束朝中心（向心）的一側，負責運輸水分與無機鹽類。",c:"--t-xylem"},
+  vessel:{n:"導管",t:"木質部",d:"木質部中口徑較大的管道，運送水分與無機鹽類。",c:"--t-xylem-line"},
+  cavity:{n:"空腔",t:"木質部",d:"最早形成的導管在莖伸長時被拉扯破壞，留下的空間。",c:"--t-pith"},
+  pithcav:{n:"髓腔",t:"中空構造",d:"莖的內外生長速度不同而形成的中空空間，有助於氣體流通、擴散進出細胞。",c:"--paper"}
+};
+
+function labelLine(svg,x0,y,part,mode,num,xL){
+  const g=S("g",{class:"lbl"},svg);
+  const lx=xL||214;
+  S("line",{x1:x0,y1:y,x2:lx,y2:y},g);
+  if(mode==="num"){S("circle",{cx:lx+12,cy:y,r:11,style:"fill:var(--ink)"},g);S("text",{x:lx+12,y:y+4.5,"text-anchor":"middle",style:"fill:var(--surface);stroke:none;font-weight:700",text:String(num)},g);}
+  else S("text",{x:lx+6,y:y+4.5,"data-part":part,text:PARTS[part].n},g);
+}
+
+/* ---------- drawing: dicot ---------- */
+function drawDicotMain(svg){
+  svg.setAttribute("viewBox","-200 -200 400 400");
+  const defs=S("defs",{},svg);
+  const cpat=cellPat(defs,13,"--t-cortex","--t-cortex-line");
+  const ppat=cellPat(defs,15,"--t-pith","--t-pith-line",.45);
+  S("circle",{r:188,"data-part":"epi",style:"fill:var(--t-epi)"},svg);
+  S("circle",{r:180,"data-part":"cortex",fill:cpat},svg);
+  S("circle",{r:96,"data-part":"pith",fill:ppat},svg);
+  for(let i=0;i<10;i++){
+    const g=S("g",{transform:`rotate(${i*36})`},svg);
+    S("ellipse",{cy:-146,rx:23,ry:11,"data-part":"phloem",style:"fill:var(--t-phloem)"},g);
+    S("ellipse",{cy:-161,rx:21,ry:6,"data-part":"fiber",style:"fill:var(--t-fiber)"},g);
+    S("rect",{x:-25,y:-136,width:50,height:5,rx:2,"data-part":"cambium",style:"fill:var(--t-cambium)"},g);
+    const x=S("g",{"data-part":"xylem"},g);
+    S("ellipse",{cy:-114,rx:21,ry:19,style:"fill:var(--t-xylem)"},x);
+    [[-9,-118,4.5],[6,-120,5.5],[-2,-104,4],[10,-106,3.5]].forEach(([cx,cy,r])=>S("circle",{cx,cy,r,style:"fill:var(--surface);stroke:var(--t-xylem-line);stroke-width:1.4"},x));
+  }
+  S("circle",{cx:0,cy:-139,r:38,style:"fill:none;stroke:var(--ink);stroke-width:1.5;stroke-dasharray:4 3;pointer-events:none"},svg);
+  const g=S("g",{class:"lbl"},svg);
+  [[...P(193,320),"epi"],[...P(140,198),"cortex"],[0,5,"pith"]].forEach(([x,y,p])=>S("text",{x,y,"text-anchor":"middle","data-part":p,text:PARTS[p].n},g));
+  S("text",{x:46,y:-160,text:"維管束"},g);
+}
+function drawDicotInset(svg,mode){
+  const defs=S("defs",{},svg);
+  const cpat=cellPat(defs,13,"--t-cortex","--t-cortex-line");
+  const ppat=cellPat(defs,15,"--t-pith","--t-pith-line",.45);
+  const phpat=cellPat(defs,7,"--t-phloem","--t-phloem-line",.4);
+  S("rect",{x:0,y:0,width:200,height:300,"data-part":"pith",fill:ppat},svg);
+  S("rect",{x:0,y:0,width:200,height:240,"data-part":"cortex",fill:cpat},svg);
+  S("rect",{x:0,y:0,width:200,height:14,"data-part":"epi",style:"fill:var(--t-epi)"},svg);
+  S("ellipse",{cx:100,cy:128,rx:76,ry:21,"data-part":"phloem",fill:phpat},svg);
+  S("ellipse",{cx:100,cy:100,rx:70,ry:13,"data-part":"fiber",style:"fill:var(--t-fiber)"},svg);
+  S("rect",{x:24,y:147,width:152,height:7,rx:3,"data-part":"cambium",style:"fill:var(--t-cambium)"},svg);
+  const x=S("g",{"data-part":"xylem"},svg);
+  S("ellipse",{cx:100,cy:194,rx:68,ry:38,style:"fill:var(--t-xylem)"},x);
+  [[70,182,9],[100,175,11],[130,184,9],[84,206,7],[116,208,8],[100,224,6],[56,200,5],[146,202,5]].forEach(([cx,cy,r])=>S("circle",{cx,cy,r,style:"fill:var(--surface);stroke:var(--t-xylem-line);stroke-width:2"},x));
+  const L=[["epi",7,192],["cortex",52,192],["fiber",100,166],["phloem",131,172],["cambium",151,176],["xylem",194,166],["pith",272,192]];
+  if(mode==="num"){svg.setAttribute("viewBox","0 0 248 300");L.forEach((l,i)=>labelLine(svg,l[2],l[1],l[0],"num",i+1,212));}
+  else if(mode!=="none"){svg.setAttribute("viewBox","0 0 320 300");L.forEach(l=>labelLine(svg,l[2],l[1],l[0],"text"));}
+}
+
+/* ---------- drawing: monocot ---------- */
+let seed=11;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647;};
+function monoBundle(parent,x,y,deg,s){
+  const g=S("g",{transform:`translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${deg.toFixed(1)})`,"data-part":"mbundle"},parent);
+  S("ellipse",{rx:s*.82,ry:s,style:"fill:var(--t-fiber)"},g);
+  S("ellipse",{cy:-s*.36,rx:s*.5,ry:s*.36,style:"fill:var(--t-phloem)"},g);
+  S("circle",{cx:-s*.38,cy:s*.18,r:s*.24,style:"fill:var(--surface)"},g);
+  S("circle",{cx:s*.38,cy:s*.18,r:s*.24,style:"fill:var(--surface)"},g);
+  S("circle",{cy:s*.56,r:s*.2,style:"fill:var(--surface)"},g);
+  return [x,y];
+}
+function drawCornMain(svg){
+  svg.setAttribute("viewBox","-200 -200 400 400");seed=11;
+  const defs=S("defs",{},svg);
+  const gpat=cellPat(defs,12,"--t-cortex","--t-cortex-line");
+  S("circle",{r:188,"data-part":"epi",style:"fill:var(--t-epi)"},svg);
+  S("circle",{r:182,"data-part":"ground",fill:gpat},svg);
+  const rings=[[171,36,5],[157,30,5.5],[140,24,6.5],[120,18,7.5],[98,14,8],[74,10,8.5],[50,6,9],[26,3,9]];
+  let first=null;
+  rings.forEach(([R,c,s],ri)=>{for(let i=0;i<c;i++){const a=i*360/c+rnd()*7+ri*11;const r=R+(rnd()-.5)*7;const [x,y]=P(r,a);const pos=monoBundle(svg,x,y,a,s);if(ri===1&&i===2)first=pos;}});
+  if(first)S("circle",{cx:first[0],cy:first[1],r:14,style:"fill:none;stroke:var(--ink);stroke-width:1.5;stroke-dasharray:4 3;pointer-events:none"},svg);
+  const g=S("g",{class:"lbl"},svg);
+  S("text",{x:P(194,315)[0],y:P(194,315)[1],"text-anchor":"middle","data-part":"epi",text:"表皮"},g);
+  S("text",{x:0,y:4,"text-anchor":"middle","data-part":"ground",text:"基本組織"},g);
+  if(first)S("text",{x:first[0]+18,y:first[1]-12,"data-part":"mbundle",text:"維管束"},g);
+}
+function drawRiceMain(svg){
+  svg.setAttribute("viewBox","-200 -200 400 400");
+  const defs=S("defs",{},svg);
+  const gpat=cellPat(defs,12,"--t-cortex","--t-cortex-line");
+  S("circle",{r:188,"data-part":"epi",style:"fill:var(--t-epi)"},svg);
+  S("circle",{r:182,"data-part":"ground",fill:gpat},svg);
+  S("circle",{r:118,"data-part":"pithcav",style:"fill:var(--paper);stroke:var(--t-cortex-line);stroke-width:2"},svg);
+  let mark=null;
+  for(let i=0;i<22;i++){const a=i*360/22+8;const [x,y]=P(170,a);monoBundle(svg,x,y,a,5.2);}
+  for(let i=0;i<14;i++){const a=i*360/14;const [x,y]=P(145,a);const pos=monoBundle(svg,x,y,a,8.5);if(i===2)mark=pos;}
+  S("circle",{cx:mark[0],cy:mark[1],r:15,style:"fill:none;stroke:var(--ink);stroke-width:1.5;stroke-dasharray:4 3;pointer-events:none"},svg);
+  const g=S("g",{class:"lbl"},svg);
+  S("text",{x:P(194,315)[0],y:P(194,315)[1],"text-anchor":"middle","data-part":"epi",text:"表皮"},g);
+  S("text",{x:P(157,193)[0],y:P(157,193)[1]+4,"text-anchor":"middle","data-part":"ground",text:"基本組織"},g);
+  S("text",{x:0,y:5,"text-anchor":"middle","data-part":"pithcav",text:"髓腔"},g);
+  S("text",{x:mark[0]+12,y:mark[1]+30,"data-part":"mbundle",text:"維管束"},g);
+}
+function drawMonoInset(svg){
+  svg.setAttribute("viewBox","0 0 320 300");
+  const defs=S("defs",{},svg);
+  const gpat=cellPat(defs,16,"--t-cortex","--t-cortex-line");
+  const phpat=cellPat(defs,8,"--t-phloem","--t-phloem-line",.4);
+  S("rect",{x:0,y:0,width:200,height:300,"data-part":"ground",fill:gpat},svg);
+  S("ellipse",{cx:100,cy:150,rx:84,ry:126,"data-part":"mbundle",style:"fill:var(--t-fiber)"},svg);
+  S("ellipse",{cx:100,cy:150,rx:72,ry:114,style:"fill:var(--t-pith);pointer-events:none"},svg);
+  S("ellipse",{cx:100,cy:84,rx:52,ry:40,"data-part":"mphloem",fill:phpat},svg);
+  S("circle",{cx:92,cy:86,r:13,"data-part":"sieve",style:"fill:var(--surface);stroke:var(--t-phloem-line);stroke-width:2"},svg);
+  S("circle",{cx:112,cy:66,r:6,"data-part":"companion",style:"fill:var(--t-phloem-line)"},svg);
+  S("ellipse",{cx:100,cy:178,rx:66,ry:54,"data-part":"mxylem",style:"fill:var(--t-xylem)"},svg);
+  S("circle",{cx:60,cy:156,r:21,"data-part":"vessel",style:"fill:var(--surface);stroke:var(--t-xylem-line);stroke-width:3"},svg);
+  S("circle",{cx:140,cy:156,r:21,"data-part":"vessel",style:"fill:var(--surface);stroke:var(--t-xylem-line);stroke-width:3"},svg);
+  S("circle",{cx:100,cy:204,r:24,"data-part":"cavity",style:"fill:var(--t-pith);stroke:var(--t-xylem-line);stroke-width:1.5"},svg);
+  [["companion",66,118],["sieve",96,105],["mphloem",122,150],["vessel",156,161],["mxylem",186,164],["cavity",214,124],["mbundle",262,170]].forEach(l=>labelLine(svg,l[2],l[1],l[0],"text"));
+  const g=S("g",{class:"lbl"},svg);
+  S("text",{x:6,y:20,style:"font-size:11px",text:"↑ 朝向表皮"},g);
+  S("text",{x:6,y:292,style:"font-size:11px",text:"↓ 朝向莖中心"},g);
+}
+
+/* ---------- viewer ---------- */
+function createViewer(host,modes){
+  let sel=null;let cur=modes[0];
+  const tabs=modes.length>1?H("div",{class:"tabs",role:"tablist"},host):null;
+  const tool=H("div",{class:"toolrow"},host);
+  H("span",{class:"hint",style:"margin:0"},tool);
+  const sw=H("label",{class:"switch"},tool);const cb=H("input",{type:"checkbox",checked:""},sw);sw.append("顯示名稱");
+  const body=H("div",{class:"vbody"},host);
+  const svgA=S("svg",{role:"img"},body);
+  const wrap=H("div",{class:"inset-wrap"},body);
+  const iname=H("p",{class:"inset-name"},wrap);
+  const svgB=S("svg",{role:"img"},wrap);
+  const chips=H("div",{class:"chips"},host);
+  const info=H("div",{class:"info"},host);
+  const tabBtns=[];
+  if(tabs)modes.forEach(m=>{const b=H("button",{class:"tab",role:"tab",type:"button","aria-selected":"false",text:m.label},tabs);b.onclick=()=>show(m);tabBtns.push(b);});
+  cb.onchange=()=>host.classList.toggle("hide-labels",!cb.checked);
+  function select(p){
+    sel=p;body.classList.toggle("has-sel",!!p);
+    host.querySelectorAll("[data-part]").forEach(e=>e.classList.toggle("sel",e.dataset.part===p));
+    chips.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.p===p?"true":"false"));
+    if(!p){info.innerHTML='<p class="empty">點選圖中任一構造或上方按鈕，查看它的位置與功能。</p>';return;}
+    const d=PARTS[p];info.innerHTML=`<h4>${d.n}<span class="tag">${d.t}</span></h4><p>${d.d}</p>`;
+  }
+  body.addEventListener("click",e=>{const t=e.target.closest("[data-part]");if(!t)return;select(t.dataset.part===sel?null:t.dataset.part);});
+  function show(m){
+    cur=m;svgA.innerHTML="";svgB.innerHTML="";chips.innerHTML="";
+    tabBtns.forEach((b,i)=>b.setAttribute("aria-selected",modes[i]===m?"true":"false"));
+    m.main(svgA);m.inset(svgB);iname.textContent=m.insetName;
+    svgA.setAttribute("aria-label",m.label+"橫切面示意圖");svgB.setAttribute("aria-label",m.insetName);
+    m.parts.forEach(p=>{const b=H("button",{class:"chip",type:"button","data-p":p,"aria-pressed":"false"},chips);H("i",{style:`background:var(${PARTS[p].c})`},b);b.append(PARTS[p].n);b.onclick=()=>select(sel===p?null:p);});
+    select(null);
+  }
+  show(cur);
+}
+createViewer(document.getElementById("herbViewer"),[
+  {label:"雙子葉草本莖（苜蓿）",main:drawDicotMain,inset:s=>drawDicotInset(s,"text"),insetName:"放大：一個維管束與周圍組織",parts:["epi","cortex","fiber","phloem","cambium","xylem","pith"]}
+]);
+createViewer(document.getElementById("monoViewer"),[
+  {label:"玉米莖",main:drawCornMain,inset:drawMonoInset,insetName:"放大：玉米莖的一個維管束",parts:["epi","ground","mbundle","mphloem","sieve","companion","mxylem","vessel","cavity"]},
+  {label:"水稻莖（中空）",main:drawRiceMain,inset:drawMonoInset,insetName:"放大：單子葉植物的一個維管束",parts:["epi","ground","mbundle","pithcav","mphloem","mxylem","vessel"]},
+  {label:"對照：雙子葉草本莖",main:drawDicotMain,inset:s=>drawDicotInset(s,"text"),insetName:"放大：雙子葉草本莖的維管束",parts:["epi","cortex","phloem","cambium","xylem","pith"]}
+]);
+
+/* ---------- apex ---------- */
+(function(){
+  const svg=document.getElementById("apexSvg");
+  const defs=S("defs",{},svg);
+  const mer=cellPat(defs,7,"--safranin-pale","--t-fiber",.38);
+  const el=S("pattern",{id:"elong",width:12,height:22,patternUnits:"userSpaceOnUse"},defs);
+  S("rect",{width:12,height:22,style:"fill:var(--t-cortex)"},el);S("rect",{x:1,y:1,width:10,height:20,rx:3,style:"fill:none;stroke:var(--t-cortex-line)"},el);
+  const mat=cellPat(defs,14,"--t-pith","--t-pith-line",.44);
+  const AP={
+    tip:{n:"生長點（頂端分生組織）",t:"分生組織",d:"位於頂芽內，外有幼葉保護。細胞能不斷分裂，使莖增長，也能形成葉、花或新的枝條。"},
+    elong:{n:"延長部",t:"細胞伸長",d:"細胞不再分裂，而是伸長，使莖增長。"},
+    mature:{n:"成熟部",t:"細胞分化",d:"細胞已分化完成，形成維管束等構造。"},
+    leaf:{n:"幼葉",t:"保護",d:"包覆在頂端分生組織外側，保護正在分裂的細胞。"},
+    bud:{n:"側芽的頂端分生組織",t:"分生組織",d:"側芽中同樣有頂端分生組織，日後可發育成新的枝條、葉或花。"},
+    vb:{n:"發育中的維管束",t:"成熟部",d:"細胞逐漸分化成運輸用的維管組織，往下連接成熟部的維管束。"}
+  };
+  const g=S("g",{},svg);
+  S("path",{d:"M60 400 L60 270 L280 270 L280 400 Z","data-part":"mature",fill:mat},g);
+  S("path",{d:"M70 270 L70 150 L270 150 L270 270 Z","data-part":"elong",fill:"url(#elong)"},g);
+  S("path",{d:"M70 152 C70 90 120 62 170 62 C220 62 270 90 270 152 Z","data-part":"tip",fill:mer},g);
+  S("path",{d:"M150 150 C150 120 160 100 170 90 C180 100 190 120 190 150","data-part":"vb",style:"fill:none;stroke:var(--t-phloem-line);stroke-width:6;stroke-linecap:round"},g);
+  S("path",{d:"M150 150 L150 400 M190 150 L190 400","data-part":"vb",style:"fill:none;stroke:var(--t-phloem-line);stroke-width:6"},g);
+  S("path",{d:"M78 150 C60 110 80 40 112 10 C118 50 116 100 110 150 Z","data-part":"leaf",style:"fill:var(--t-epi)"},g);
+  S("path",{d:"M262 150 C280 110 260 40 228 10 C222 50 224 100 230 150 Z","data-part":"leaf",style:"fill:var(--t-epi)"},g);
+  S("path",{d:"M60 290 C28 280 18 250 30 228 C46 230 60 250 62 270 Z","data-part":"bud",fill:mer},g);
+  S("path",{d:"M280 290 C312 280 322 250 310 228 C294 230 280 250 278 270 Z","data-part":"bud",fill:mer},g);
+  const L=S("g",{class:"lbl"},svg);
+  [[170,118,"生長點","tip"],[170,214,"延長部","elong"],[170,345,"成熟部","mature"],[96,72,"幼葉","leaf"],[30,318,"側芽","bud"]].forEach(([x,y,t,p])=>S("text",{x,y,"text-anchor":"middle","data-part":p,text:t},L));
+  const box=document.getElementById("apexBox"),info=document.getElementById("apexInfo"),chips=document.getElementById("apexChips");
+  let sel=null;
+  function select(p){sel=p;box.classList.toggle("has-sel",!!p);
+    box.querySelectorAll("[data-part]").forEach(e=>e.classList.toggle("sel",e.dataset.part===p));
+    chips.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.p===p?"true":"false"));
+    info.innerHTML=p?`<h4>${AP[p].n}<span class="tag">${AP[p].t}</span></h4><p>${AP[p].d}</p>`:'<p class="empty">點選一個區域，查看它的特徵與功能。</p>';}
+  svg.addEventListener("click",e=>{const t=e.target.closest("[data-part]");if(t)select(t.dataset.part===sel?null:t.dataset.part);});
+  [["tip","--t-fiber"],["elong","--t-cortex"],["mature","--t-pith"],["leaf","--t-epi"],["bud","--safranin-pale"],["vb","--t-phloem-line"]].forEach(([p,c])=>{const b=H("button",{class:"chip",type:"button","data-p":p,"aria-pressed":"false"},chips);H("i",{style:`background:var(${c})`},b);b.append(AP[p].n.replace("（頂端分生組織）",""));b.onclick=()=>select(sel===p?null:p);});
+})();
+
+/* ---------- branch comparison ---------- */
+(function(){
+  const sS=document.getElementById("stemBranch"),sR=document.getElementById("rootBranch"),rng=document.getElementById("branchRange");
+  function draw(t){
+    t=t/100;
+    sS.innerHTML="";sR.innerHTML="";
+    // stem: vertical stem, bud on surface grows outward
+    S("rect",{x:70,y:0,width:60,height:200,style:"fill:var(--t-cortex)"},sS);
+    S("rect",{x:92,y:0,width:16,height:200,style:"fill:var(--t-phloem)"},sS);
+    S("rect",{x:66,y:0,width:4,height:200,style:"fill:var(--t-epi)"},sS);
+    S("rect",{x:130,y:0,width:4,height:200,style:"fill:var(--t-epi)"},sS);
+    const len=8+t*86;
+    S("path",{d:`M134 112 L${134+len} ${112-len*.55} L${134+len} ${100-len*.55} L134 96 Z`,style:"fill:var(--t-cortex);stroke:var(--t-epi);stroke-width:3;stroke-linejoin:round"},sS);
+    S("path",{d:`M${130+len} ${106-len*.55} m-2 0 c6 -10 14 -10 16 0 c-2 8 -10 10 -16 0`,style:"fill:var(--t-fiber)"},sS);
+    S("text",{x:120,y:190,"text-anchor":"end",style:"font-size:11px;fill:var(--ink-soft)",text:"莖"},sS);
+    // root: cross-section rings, lateral root from pericycle
+    const cx=120,cy=100;
+    S("circle",{cx,cy,r:92,style:"fill:var(--t-epi)"},sR);
+    S("circle",{cx,cy,r:87,style:"fill:var(--t-cortex)"},sR);
+    S("circle",{cx,cy,r:40,style:"fill:var(--t-phloem)"},sR);
+    S("circle",{cx,cy,r:40,style:"fill:none;stroke:var(--t-cambium);stroke-width:3"},sR);
+    S("path",{d:`M${cx-14} ${cy} L${cx} ${cy-26} L${cx+14} ${cy} L${cx} ${cy+26} Z`,style:"fill:var(--t-xylem)"},sR);
+    const reach=40+t*80; // from pericycle outward to the right
+    const brk=reach>86;
+    S("path",{d:`M${cx+38} ${cy-11} L${cx+reach} ${cy-9} Q${cx+reach+12} ${cy} ${cx+reach} ${cy+9} L${cx+38} ${cy+11} Z`,style:"fill:var(--t-fiber);stroke:var(--safranin);stroke-width:1.5"},sR);
+    if(brk){S("path",{d:`M${cx+86} ${cy-16} l8 -6 M${cx+86} ${cy+16} l8 6`,style:"stroke:var(--ink);stroke-width:2"},sR);}
+    S("text",{x:cx,y:cy+6,"text-anchor":"middle",style:"font-size:10px;fill:var(--ink)",text:"中柱"},sR);
+    S("text",{x:cx-64,y:cy+6,"text-anchor":"middle",style:"font-size:10px;fill:var(--ink)",text:"皮層"},sR);
+    S("text",{x:cx+44,y:cy-16,style:"font-size:10px;fill:var(--ink);paint-order:stroke;stroke:var(--t-cortex);stroke-width:3",text:"周鞘"},sR);
+  }
+  rng.oninput=()=>draw(+rng.value);draw(0);
+})();
+
+/* ---------- woody growth sim ---------- */
+(function(){
+  const svg=document.getElementById("woodySvg"),rng=document.getElementById("yearRange"),play=document.getElementById("playBtn");
+  const big=document.getElementById("yearBig"),desc=document.getElementById("yearDesc"),chips=document.getElementById("woodyChips"),info=document.getElementById("woodyInfo"),box=document.getElementById("woodyBox");
+  const W={
+    "w-epi":["表皮","--t-epi","莖加粗後，表皮被撐破，逐漸失去保護作用。"],
+    "w-cork":["木栓層","--t-cork","由木栓形成層向外產生，不透水也不透氣，取代表皮負責保護並防止水分散失。"],
+    "w-corkcam":["木栓形成層","--t-corkcam","由外側皮層細胞轉變而來，具分裂能力：向外產生木栓層、向內產生木栓皮層。"],
+    "w-cortex":["木栓皮層","--t-cortex","木栓形成層向內產生的細胞層。"],
+    "w-cortex0":["皮層","--t-cortex","表皮內側的薄壁細胞，可儲存養分與水分。"],
+    "w-phloem":["韌皮部","--t-phloem","由形成層向外產生，運輸有機養分。多為薄壁細胞，舊的韌皮部會被擠壓變形，所以始終很薄。"],
+    "w-cambium":["維管束形成層","--t-cambium","每年持續分裂，向內產生木質部、向外產生韌皮部，是莖能加粗的關鍵。"],
+    "w-xylem":["木質部","--t-late","由形成層向內產生，多為厚壁細胞，不易被擠壓而愈積愈厚，也就是木材。"],
+    "w-sap":["邊材","--t-early","靠外側的新生木質部，含水較多、顏色淺，仍能輸送水分與無機鹽類。"],
+    "w-heart":["心材","--t-heart","靠內側的老化木質部，堆積大量填充物、顏色深，不再運輸，主要負責支持。"],
+    "w-pith":["髓","--t-pith","莖中央的薄壁細胞。"],
+    "w-ray":["射髓","--t-ray","由中心向外放射排列的細胞列，貫穿木質部與韌皮部。"],
+    "w-lenticel":["皮孔","--paper","樹皮表面的小孔。木栓層形成後，莖靠皮孔和外界交換氣體。"]
+  };
+  const YD=[
+    "幼莖的構造和草本莖相似：維管束排成一圈，最外層是完整的表皮。",
+    "第 1 年：形成層開始分裂，木質部向內、韌皮部向外增加，莖變粗。表皮出現裂痕，外側皮層細胞轉變成木栓形成層，開始產生木栓層。",
+    "第 2 年：新的木質部包在舊木質部外側，多了一圈。表皮幾乎被撐破，由木栓層接手保護，表面出現皮孔供氣體交換。",
+    "第 3 年：內側較老的木質部堆積填充物、顏色變深，成為心材；外側仍能輸水的部分是邊材。",
+    "第 4 年：木質部愈積愈厚。韌皮部多為薄壁細胞，被新組織擠壓變形，所占比例愈來愈小。",
+    "第 5 年：莖的絕大部分都是木質部，也就是俗稱的木材；樹皮只占外圍薄薄一層。"
+  ];
+  let sel=null;const pith=28;
+  function disc(r,part,fill){return S("circle",{r,"data-part":part,style:`fill:var(${fill})`},svg);}
+  function draw(n){
+    svg.innerHTML="";const defs=S("defs",{},svg);
+    const cpat=cellPat(defs,9,"--t-cortex","--t-cortex-line");
+    const ppat=cellPat(defs,9,"--t-pith","--t-pith-line");
+    let parts;let xT,pT;
+    if(n===0){
+      disc(92,"w-epi","--t-epi");S("circle",{r:87,"data-part":"w-cortex0",fill:cpat},svg);
+      for(let i=0;i<8;i++){const g=S("g",{transform:`rotate(${i*45})`},svg);
+        S("ellipse",{cy:-67,rx:14,ry:8,"data-part":"w-phloem",style:"fill:var(--t-phloem)"},g);
+        S("rect",{x:-15,y:-60,width:30,height:4,rx:2,"data-part":"w-cambium",style:"fill:var(--t-cambium)"},g);
+        S("ellipse",{cy:-44,rx:13,ry:12,"data-part":"w-xylem",style:"fill:var(--t-xylem)"},g);}
+      S("circle",{r:pith,"data-part":"w-pith",fill:ppat},svg);
+      parts=["w-epi","w-cortex0","w-phloem","w-cambium","w-xylem","w-pith"];xT=12;pT=8;
+    }else{
+      const xO=40+20*n,cam=xO+2.5,phO=cam+6+n,ctxO=phO+9,ccO=ctxO+2.5,corkO=ccO+3+3*n;
+      disc(corkO,"w-cork","--t-cork");disc(ccO,"w-corkcam","--t-corkcam");
+      S("circle",{r:ctxO,"data-part":"w-cortex",fill:cpat},svg);
+      disc(phO,"w-phloem","--t-phloem");
+      S("circle",{r:phO-3,style:"fill:none;stroke:var(--t-phloem-line);stroke-width:1.5;stroke-dasharray:2 3;pointer-events:none"},svg);
+      disc(cam,"w-cambium","--t-cambium");
+      for(let k=n;k>=1;k--){const outer=40+20*k;const heart=n>=3&&k<=n-2;const part=n>=3?(heart?"w-heart":"w-sap"):"w-xylem";
+        disc(outer,part,heart?"--t-heart":"--t-late");disc(outer-6,part,heart?"--t-heart-e":"--t-early");}
+      disc(40,n>=3?"w-heart":"w-xylem",n>=3?"--t-heart-e":"--t-xylem");
+      S("circle",{r:pith,"data-part":"w-pith",fill:ppat},svg);
+      const rg=S("g",{"data-part":"w-ray",style:"pointer-events:none"},svg);
+      for(let i=0;i<20;i++){const a=i*18+4;const [x1,y1]=P(pith,a),[x2,y2]=P(phO,a);S("line",{x1,y1,x2,y2,style:"stroke:var(--t-ray);stroke-width:1.3"},rg);}
+      if(n>=2){for(const a of [20,95,170,240,310]){const [x,y]=P(corkO-2,a);S("ellipse",{cx:x,cy:y,rx:6,ry:3.2,transform:`rotate(${a+90} ${x} ${y})`,"data-part":"w-lenticel",style:"fill:var(--t-early);stroke:var(--t-cork);stroke-width:1"},svg);}}
+      if(n<=2){const segs=n===1?[[0,38],[45,82],[90,128],[136,172],[180,218],[226,262],[270,306],[315,352]]:[[10,26],[120,132],[200,218],[290,302]];
+        const eg=S("g",{"data-part":"w-epi"},svg);segs.forEach(([a,b])=>S("path",{d:arcPath(corkO+2,a,b),style:"fill:none;stroke:var(--t-epi);stroke-width:4;stroke-linecap:round"},eg));}
+      for(let k=1;k<=n;k++){const r=40+20*k-10;S("text",{x:r,y:4,"text-anchor":"middle",class:"ringnum",text:String(k)},svg);}
+      parts=[];if(n<=2)parts.push("w-epi");parts.push("w-cork","w-corkcam","w-cortex","w-phloem","w-cambium");
+      if(n>=3)parts.push("w-sap","w-heart");else parts.push("w-xylem");parts.push("w-pith","w-ray");if(n>=2)parts.push("w-lenticel");
+      xT=xO-pith;pT=phO-cam;
+    }
+    big.textContent=n===0?"幼莖":`第 ${n} 年`;desc.textContent=YD[n];
+    const tot=xT+pT;document.getElementById("barX").style.width=(xT/150*100)+"%";document.getElementById("barP").style.width=(pT/150*100)+"%";
+    document.getElementById("numX").textContent=Math.round(xT/tot*100)+"%";document.getElementById("numP").textContent=Math.round(pT/tot*100)+"%";
+    chips.innerHTML="";parts.forEach(p=>{const b=H("button",{class:"chip",type:"button","data-p":p,"aria-pressed":"false"},chips);H("i",{style:`background:var(${W[p][1]})`},b);b.append(W[p][0]);b.onclick=()=>select(sel===p?null:p);});
+    if(sel&&!parts.includes(sel))sel=null;select(sel);
+  }
+  function select(p){sel=p;svg.classList.toggle("has-sel",!!p);
+    svg.querySelectorAll("[data-part]").forEach(e=>e.classList.toggle("sel",e.dataset.part===p));
+    chips.querySelectorAll(".chip").forEach(c=>c.setAttribute("aria-pressed",c.dataset.p===p?"true":"false"));
+    info.innerHTML=p?`<h4>${W[p][0]}</h4><p>${W[p][2]}</p>`:'<p class="empty">點選圖例或圖中構造，查看說明。</p>';}
+  svg.addEventListener("click",e=>{const t=e.target.closest("[data-part]");if(t)select(t.dataset.part===sel?null:t.dataset.part);});
+  rng.oninput=()=>draw(+rng.value);
+  let timer=null;
+  play.onclick=()=>{if(timer){clearInterval(timer);timer=null;play.textContent="播放";return;}
+    if(+rng.value>=5){rng.value=0;draw(0);}play.textContent="暫停";
+    timer=setInterval(()=>{const v=+rng.value+1;rng.value=v;draw(v);if(v>=5){clearInterval(timer);timer=null;play.textContent="播放";}},reduce?400:1500);};
+  draw(0);
+})();
+
+/* ---------- bark strip ---------- */
+(function(){
+  const host=document.getElementById("barkStrip"),info=document.getElementById("barkInfo");
+  const B=[
+    ["表皮","--t-epi",1,"最外層。木本莖加粗後，表皮多已被撐破剝落。"],
+    ["木栓層","--t-cork",3,"由木栓形成層向外產生，不透水也不透氣，負責保護並防止水分散失；表面有皮孔供氣體交換。"],
+    ["木栓形成層","--t-corkcam",1,"由皮層細胞轉變而來，具分裂能力，向外產生木栓層、向內產生木栓皮層。"],
+    ["木栓皮層","--t-cortex",2,"木栓形成層向內產生的細胞層。"],
+    ["韌皮部","--t-phloem",2,"運輸有機養分。多為薄壁細胞，容易被擠壓，所以在老莖中所占比例很小。"],
+    ["維管束形成層","--t-cambium",1,"樹皮與木材的分界。持續分裂，向內產生木質部、向外產生韌皮部。"],
+    ["邊材","--t-early",4,"較新的木質部，含水較多、顏色淺，仍能輸送水分與無機鹽類。"],
+    ["心材","--t-heart",6,"老化的木質部，堆積大量填充物、顏色深，不再運輸，主要負責支持。"]
+  ];
+  host.style.gridTemplateRows=B.map(b=>`minmax(${30+b[2]*7}px,auto)`).join(" ");
+  let sel=-1;const btns=[];
+  B.forEach((b,i)=>{const s=H("button",{class:"seg",type:"button","aria-pressed":"false",style:`grid-row:${i+1};grid-column:1`},host);H("span",{class:"sw",style:`background:var(${b[1]})`},s);H("span",{class:"nm",text:b[0]},s);
+    s.onclick=()=>{sel=sel===i?-1:i;btns.forEach((x,j)=>x.setAttribute("aria-pressed",j===sel?"true":"false"));info.innerHTML=sel<0?'<p class="empty">點選一層，查看它的特徵。</p>':`<h4>${b[0]}</h4><p>${b[3]}</p>`;};btns.push(s);});
+  H("div",{class:"brk",style:"grid-column:2;grid-row:2 / 5",text:"周皮"},host);
+  H("div",{class:"brk",style:"grid-column:3;grid-row:1 / 6",text:"樹皮"},host);
+  H("div",{class:"brk",style:"grid-column:3;grid-row:7 / 9",text:"木材"},host);
+})();
+
+/* ---------- cell strip ---------- */
+(function(){
+  const svg=document.getElementById("cellSvg");
+  let x=14;const top=34,bot=134;const yearsX=[];
+  for(let yr=0;yr<3;yr++){
+    const start=x;const early=[19,18,17,16,15,14];const late=[10,8.5,7,6];let lateStart=0;
+    [...early,...late].forEach((w,i)=>{if(i===early.length)lateStart=x;const isLate=i>=early.length;
+      for(let y=top;y+w<=bot+0.1;y+=w){S("rect",{x:x+.6,y:y+.6,width:w-1.2,height:w-1.2,rx:2,style:`fill:var(--surface);stroke:var(${isLate?"--t-xylem-line":"--t-xylem"});stroke-width:${isLate?3:1.2}`},svg);}
+      x+=w;});
+    yearsX.push([start,lateStart,x]);x+=0;
+  }
+  const g=S("g",{class:"lbl"},svg);
+  const [s0,l0,e0]=yearsX[0];
+  S("polyline",{points:`${s0+2},${top-6} ${s0+2},${top-12} ${l0-2},${top-12} ${l0-2},${top-6}`},g);
+  S("polyline",{points:`${l0+2},${top-6} ${l0+2},${top-12} ${e0-2},${top-12} ${e0-2},${top-6}`},g);
+  S("text",{x:(s0+l0)/2,y:top-17,"text-anchor":"middle",text:"早材"},g);
+  S("text",{x:(l0+e0)/2,y:top-17,"text-anchor":"middle",text:"晚材"},g);
+  yearsX.forEach(([s,l,e],i)=>S("text",{x:(s+e)/2,y:bot+20,"text-anchor":"middle",text:`第 ${i+1} 年`},g));
+  S("text",{x:14,y:bot+34,style:"font-size:11px",text:"← 莖的中心"},g);
+  S("text",{x:x,y:bot+34,"text-anchor":"end",style:"font-size:11px",text:"樹皮 →"},g);
+  svg.setAttribute("viewBox",`0 0 ${Math.ceil(x+14)} 172`);
+})();
+
+/* ---------- ring simulator ---------- */
+(function(){
+  const svg=document.getElementById("ringSvg"),read=document.getElementById("ringRead"),bars=document.getElementById("yearBars");
+  const wet=document.getElementById("wetBtn"),dry=document.getElementById("dryBtn");
+  let clim="temperate",rings=[];
+  function draw(){
+    svg.innerHTML="";bars.innerHTML="";
+    const tot=rings.reduce((a,r)=>a+r.w,0);const sc=Math.min(1,126/(tot+8||1));
+    const pith=8*sc+2;let radii=[];let r=pith;rings.forEach(R=>{radii.push([r,r+R.w*sc,R]);r+=R.w*sc;});
+    S("circle",{r:r+12*Math.max(sc,.6),style:"fill:var(--t-cork)"},svg);
+    S("circle",{r:r+3,style:"fill:var(--t-phloem)"},svg);
+    for(let i=radii.length-1;i>=0;i--){const [a,b,R]=radii[i];
+      if(clim==="temperate"){S("circle",{r:b,style:"fill:var(--t-late)"},svg);S("circle",{r:b-(b-a)*.3,style:"fill:var(--t-early)"},svg);}
+      else{S("circle",{r:b,style:`fill:var(--t-early)`},svg);}
+    }
+    S("circle",{r:pith,style:"fill:var(--t-pith)"},svg);
+    if(clim==="tropical"&&rings.length)S("circle",{r:r,style:"fill:none;stroke:var(--t-late);stroke-width:.6;opacity:.25"},svg);
+    rings.forEach(R=>{const d=H("div",{style:`height:${R.w*3.6}px;background:var(${R.good?"--t-early":"--t-late"})`,title:R.good?"氣候良好":"乾旱寒冷"},bars);});
+    const n=rings.length;
+    if(!n)read.textContent="還沒開始生長。按下按鈕讓樹長一年。";
+    else if(clim==="temperate"){const narrow=rings.map((R,i)=>R.good?null:i+1).filter(Boolean);read.textContent=`樹齡 ${n} 年，可以數到 ${n} 圈年輪。`+(narrow.length?`第 ${narrow.join("、")} 年的年輪特別窄，表示那幾年生長條件較差。`:"");}
+    else read.textContent=`樹齡 ${n} 年，但季節變化不明顯，早材與晚材難以區分，看不到清楚的年輪。`;
+    wet.disabled=dry.disabled=n>=20;
+  }
+  function add(good){if(rings.length>=20)return;rings.push({good,w:good?13+Math.random()*3:4+Math.random()*2});draw();}
+  wet.onclick=()=>add(true);dry.onclick=()=>add(false);
+  document.getElementById("resetBtn").onclick=()=>{rings=[];draw();};
+  document.querySelectorAll("[data-clim]").forEach(b=>b.onclick=()=>{clim=b.dataset.clim;document.querySelectorAll("[data-clim]").forEach(x=>x.setAttribute("aria-pressed",x===b?"true":"false"));draw();});
+  rings=[{good:true,w:14},{good:true,w:13},{good:false,w:5},{good:true,w:15}];draw();
+})();
+
+/* ---------- worksheet data ---------- */
+const QUIZ=[
+  ["下列哪一種植物屬於木質藤本？",["馬纓丹","薜荔","菠菜","大王椰子"],1,"薜荔的莖呈蔓藤狀並攀附他物生長。馬纓丹是灌木，菠菜是草本植物，大王椰子是喬木。"],
+  ["莖頂縱切面中，細胞不再分裂、但會伸長而使莖增長的區域是？",["生長點","延長部","成熟部","側芽"],1,"延長部的細胞不分裂，靠細胞伸長讓莖增長；生長點的細胞才會不斷分裂。"],
+  ["關於莖的枝條與根的支根，下列敘述何者正確？",["兩者都由周鞘產生","枝條由側芽的頂端分生組織發育而來，長出時不破壞表面組織","支根由根表面的側芽長出","枝條長出時必須穿破皮層與表皮"],1,"枝條來自莖表面的側芽，不會破壞組織；支根則源自深處的周鞘，需穿過皮層與表皮才能伸出。"],
+  ["雙子葉草本莖中，位於維管束外側、負責運輸有機養分的構造是？",["木質部","韌皮部","皮層","髓"],1,"韌皮部在維管束外側運輸有機養分；木質部在內側運輸水分與無機鹽類。"],
+  ["雙子葉草本莖的直徑通常不會明顯增加，主要原因是？",["沒有維管束形成層","維管束散生在基本組織中","形成層受植物生長或壽命限制，無法產生大量維管組織","表皮的角質層限制莖變粗"],2,"雙子葉草本莖有形成層，但受生長或壽命限制，產生的維管組織不多。沒有形成層、維管束散生是單子葉莖的特徵。"],
+  ["木本莖的表皮被撐破後，接手保護並防止水分散失的構造是？",["木栓層","皮層","韌皮部","心材"],0,"木栓形成層向外產生木栓層，木栓層不透水也不透氣，取代表皮；氣體交換則改由皮孔進行。"],
+  ["多年生雙子葉木本莖中，韌皮部所占比例愈來愈少，原因是？",["韌皮部會逐漸轉變成木質部","形成層只向內分裂","韌皮部多為薄壁細胞易被擠壓變形，且形成層向外產生韌皮部的速度較慢","韌皮部被木栓層取代"],2,"形成層向內產生木質部較快；韌皮部多為薄壁細胞，被新組織擠壓變形，木質部的厚壁細胞則愈堆愈厚。"],
+  ["關於心材，下列敘述何者正確？",["位於木材外側，顏色較淺","仍能運輸水分與無機鹽類","堆積大量填充物、顏色較深，主要用於支持","由木栓形成層產生"],2,"心材是內側老化的木質部，已不具運輸作用；外側仍能運輸、顏色較淺的是邊材。"],
+  ["在同一圈年輪中，晚材的特徵是？",["細胞大、壁薄、顏色淺","細胞小、壁厚、顏色深","在春季初形成","只出現在熱帶地區"],1,"晚材在生長季節末期形成，細胞小、壁厚、顏色深；早材則細胞大、壁薄、顏色淺。"],
+  ["下列何者是玉米莖的特徵？",["維管束排成一圈","有維管束形成層，可逐年加粗","維管束散生，靠近表皮處較密集","維管束中的韌皮部朝向莖的中心"],2,"玉米是單子葉植物，維管束散生且近表皮處較密集，沒有形成層；木質部朝中心、韌皮部朝外。"]
+];
+const LABEL_ANS=["epi","cortex","fiber","phloem","cambium","xylem","pith"];
+const LABEL_OPTS=["phloem","pith","cambium","epi","xylem","fiber","cortex"];
+const ORDER_ANS=["表皮","木栓層","木栓形成層","木栓皮層","韌皮部"];
+const ORDER_START=["韌皮部","木栓形成層","表皮","木栓皮層","木栓層"];
+const OPENQ=[
+  ["為什麼大王椰子和孟宗竹的樹幹上下粗細相近，而多數雙子葉樹木卻是下粗上細？","雙子葉樹木有維管束形成層，每年都會產生新的木質部。莖的基部生長年數最長，累積的木質部最多，所以最粗；越往上越年輕，就越細。單子葉植物缺乏維管束形成層，莖不會逐年加粗，因此上下粗細相近。"],
+  ["一棵溫帶樹木的年輪中，有連續兩圈特別窄。你可以推測那兩年發生了什麼事？","那兩年的生長條件可能較差，例如乾旱、低溫或雨量不足，形成層產生的木質部細胞較少，年輪就變窄。"],
+  ["水稻、竹子的莖中有中空的髓腔。這樣的構造對植物有什麼好處？","髓腔是因莖的內外生長速度不同而形成，中空的空間有助於氣體流通，讓氣體擴散進出細胞。"]
+];
+const TOTAL=18;
+const ABCD="ABCD";
+
+/* ---------- runtime capabilities ---------- */
+let DB=null,USER=null,DL=null;
+const capsReady=(async()=>{
+  try{
+    if(window.claude&&typeof window.claude.use==="function"){
+      [DB,USER,DL]=await Promise.all([claude.use("db"),claude.use("user"),claude.use("downloads")]);
+    }
+  }catch(e){}
+})();
+
+/* ---------- worksheet tabs ---------- */
+(function(){
+  const tabs=[...document.querySelectorAll(".ws-tabs .tab")];
+  tabs.forEach(t=>t.onclick=()=>{tabs.forEach(x=>{const on=x===t;x.setAttribute("aria-selected",on?"true":"false");document.getElementById(x.dataset.pane).hidden=!on;});});
+})();
+
+/* ---------- practice mode ---------- */
+const score={mc:0,label:0,order:0};
+function updScore(){document.getElementById("score").textContent=score.mc+score.label+score.order;}
+(function(){
+  const box=document.getElementById("mcBox");
+  QUIZ.forEach((q,qi)=>{const d=H("div",{class:"q"},box);H("p",{class:"stem",html:`<b>${qi+1}.</b>${q[0]}`},d);
+    const o=H("div",{class:"opts"},d);const ex=H("p",{class:"explain",style:"display:none"},d);const bs=[];
+    q[1].forEach((t,i)=>{const b=H("button",{class:"opt",type:"button",text:`(${ABCD[i]}) ${t}`},o);bs.push(b);
+      b.onclick=()=>{bs.forEach(x=>x.disabled=true);bs[q[2]].classList.add("right");const ok=i===q[2];if(!ok)b.classList.add("wrong");else{score.mc++;updScore();}
+        ex.style.display="block";ex.innerHTML=`<b class="${ok?"ok":"no"}">${ok?"答對了。":"再想想："}</b>${q[3]}`;};});
+  });
+})();
+function buildLabelRows(rows){const sels=[];LABEL_ANS.forEach((a,i)=>{const r=H("div",{class:"lab-row"},rows);H("span",{class:"n",text:String(i+1)},r);const s=H("select",{"aria-label":`編號 ${i+1} 的名稱`},r);H("option",{value:"",text:"請選擇"},s);LABEL_OPTS.forEach(o=>H("option",{value:o,text:PARTS[o].n},s));const m=H("span",{class:"mk"},r);sels.push([s,m]);});return sels;}
+function markLabels(sels){let c=0;sels.forEach(([s,m],i)=>{const ok=s.value===LABEL_ANS[i];s.classList.toggle("right",ok);s.classList.toggle("wrong",!ok);m.textContent=ok?"✓":"✗ "+PARTS[LABEL_ANS[i]].n;m.style.color=ok?"var(--green)":"var(--safranin)";if(ok)c++;});return c;}
+(function(){
+  drawDicotInset(document.getElementById("labelSvg"),"num");
+  const sels=buildLabelRows(document.getElementById("labelRows"));
+  const msg=document.getElementById("labelMsg");
+  document.getElementById("labelCheck").onclick=()=>{const c=markLabels(sels);sels.forEach(([s,m],i)=>{if(s.value!==LABEL_ANS[i])m.textContent="✗";});
+    score.label=c;updScore();msg.innerHTML=c===7?'<b class="ok">全部正確。</b>由外而內：表皮、皮層、韌皮纖維、韌皮部、維管束形成層、木質部、髓。':`<b class="no">答對 ${c} / 7。</b>提示：維管束中，運輸養分的部分在外側，運輸水分的部分在內側。`;};
+  document.getElementById("labelReset").onclick=()=>{sels.forEach(([s,m])=>{s.value="";s.classList.remove("right","wrong");m.textContent="";});score.label=0;updScore();msg.textContent="";};
+})();
+function orderWidget(list,state,onChange){
+  function render(focusIdx,dir){list.innerHTML="";state.cur.forEach((t,i)=>{const li=H("li",{},list);H("span",{text:t},li);
+    const up=H("button",{class:"mv",type:"button","aria-label":`將「${t}」往上移`,text:"↑"},li);up.disabled=i===0||state.locked;up.onclick=()=>{[state.cur[i-1],state.cur[i]]=[state.cur[i],state.cur[i-1]];render(i-1,"up");onChange&&onChange();};
+    const dn=H("button",{class:"mv",type:"button","aria-label":`將「${t}」往下移`,text:"↓"},li);dn.disabled=i===state.cur.length-1||state.locked;dn.onclick=()=>{[state.cur[i+1],state.cur[i]]=[state.cur[i],state.cur[i+1]];render(i+1,"dn");onChange&&onChange();};
+    if(i===focusIdx){const t2=dir==="up"?(up.disabled?dn:up):(dn.disabled?up:dn);if(!t2.disabled)t2.focus();}});}
+  render();
+  return {render,mark(){const lis=[...list.children];let all=true;state.cur.forEach((t,i)=>{const ok=t===ORDER_ANS[i];lis[i].classList.toggle("right",ok);lis[i].classList.toggle("wrong",!ok);if(!ok)all=false;});return all;}};
+}
+(function(){
+  const st={cur:[...ORDER_START],locked:false};const msg=document.getElementById("orderMsg");
+  const w=orderWidget(document.getElementById("orderList"),st,()=>{msg.textContent="";});
+  document.getElementById("orderCheck").onclick=()=>{const all=w.mark();score.order=all?1:0;updScore();msg.innerHTML=all?'<b class="ok">順序正確。</b>其中木栓層、木栓形成層、木栓皮層合稱周皮。':'<b class="no">還有位置不對。</b>提示：木栓形成層向外產生木栓層、向內產生木栓皮層。';};
+})();
+(function(){
+  const box=document.getElementById("openBox");
+  OPENQ.forEach((o,i)=>{const d=H("div",{class:"q"},box);H("p",{class:"stem",html:`<b>${i+1}.</b>${o[0]}`},d);H("textarea",{"aria-label":`思考題 ${i+1} 的作答區`,placeholder:"寫下你的想法…"},d);
+    const ref=H("div",{class:"ref",html:`<b>參考答案：</b>${o[1]}`},d);const b=H("button",{class:"btn sm",type:"button",style:"margin-top:10px",text:"顯示參考答案"},d);
+    b.onclick=()=>{ref.classList.toggle("show");b.textContent=ref.classList.contains("show")?"隱藏參考答案":"顯示參考答案";};});
+})();
+
+/* ---------- exam mode ---------- */
+(function(){
+  const box=document.getElementById("examBox"),submit=document.getElementById("exSubmit"),retry=document.getElementById("exRetry"),result=document.getElementById("exResult");
+  const seat=document.getElementById("exSeat"),name=document.getElementById("exName");
+  let EX;
+  function build(){
+    EX={mc:Array(QUIZ.length).fill(null),mcBtns:[],mcEx:[],order:{cur:[...ORDER_START],locked:false},sels:null,texts:[],refs:[],done:false};
+    box.innerHTML="";result.innerHTML="";
+    H("h3",{class:"part-title",text:"一、選擇題（每題 1 分）"},box);
+    QUIZ.forEach((q,qi)=>{const d=H("div",{class:"q"},box);H("p",{class:"stem",html:`<b>${qi+1}.</b>${q[0]}`},d);
+      const o=H("div",{class:"opts",role:"group","aria-label":`第 ${qi+1} 題選項`},d);const bs=[];
+      q[1].forEach((t,i)=>{const b=H("button",{class:"opt",type:"button","aria-pressed":"false",text:`(${ABCD[i]}) ${t}`},o);bs.push(b);
+        b.onclick=()=>{if(EX.done)return;EX.mc[qi]=i;bs.forEach((x,j)=>x.setAttribute("aria-pressed",j===i?"true":"false"));};});
+      EX.mcBtns.push(bs);EX.mcEx.push(H("p",{class:"explain",hidden:""},d));});
+    H("h3",{class:"part-title",text:"二、標示題（每格 1 分）"},box);
+    const lq=H("div",{class:"q"},box);H("p",{class:"stem",text:"請替圖中編號 1～7 的構造選出正確名稱。"},lq);
+    const lg=H("div",{class:"label-grid"},lq);const sv=S("svg",{role:"img","aria-label":"維管束放大圖，標有編號 1 到 7"},lg);drawDicotInset(sv,"num");
+    EX.sels=buildLabelRows(H("div",{},lg));
+    H("h3",{class:"part-title",text:"三、排序題（1 分）"},box);
+    const oq=H("div",{class:"q"},box);H("p",{class:"stem",text:"把雙子葉木本莖的樹皮構造由「最外層」排到「最內層」。"},oq);
+    EX.orderW=orderWidget(H("ol",{class:"order-list"},oq),EX.order);
+    H("h3",{class:"part-title",text:"四、思考題（不計分，老師會閱讀）"},box);
+    OPENQ.forEach((o,i)=>{const d=H("div",{class:"q"},box);H("p",{class:"stem",html:`<b>${i+1}.</b>${o[0]}`},d);EX.texts.push(H("textarea",{"aria-label":`思考題 ${i+1} 的作答區`,placeholder:"寫下你的想法…"},d));EX.refs.push(H("div",{class:"ref",html:`<b>參考答案：</b>${o[1]}`},d));});
+    submit.hidden=false;retry.hidden=true;seat.disabled=name.disabled=false;
+  }
+  build();
+  let confirmEmpty=false;
+  submit.onclick=async()=>{
+    if(EX.done)return;
+    if(!seat.value.trim()||!name.value.trim()){result.innerHTML="";H("p",{class:"explain",html:'<b class="no">請先在最上方填寫班級座號和姓名。</b>'},result);(seat.value.trim()?name:seat).focus();return;}
+    const blank=EX.mc.filter(v=>v===null).length+EX.sels.filter(([s])=>!s.value).length;
+    if(blank&&!confirmEmpty){confirmEmpty=true;result.innerHTML="";H("p",{class:"explain",html:`<b class="no">還有 ${blank} 格沒有作答。</b>確定要交卷的話，請再按一次「交卷並對答案」。`},result);return;}
+    confirmEmpty=false;EX.done=true;
+    let mcS=0;QUIZ.forEach((q,qi)=>{const bs=EX.mcBtns[qi];bs.forEach(b=>b.disabled=true);bs[q[2]].classList.add("right");const ok=EX.mc[qi]===q[2];if(ok)mcS++;else if(EX.mc[qi]!==null)bs[EX.mc[qi]].classList.add("wrong");
+      const ex=EX.mcEx[qi];ex.hidden=false;ex.innerHTML=`<b class="${ok?"ok":"no"}">${ok?"答對了。":EX.mc[qi]===null?"未作答。":"答錯了。"}</b>正確答案是 (${ABCD[q[2]]})。${q[3]}`;});
+    const labS=markLabels(EX.sels);EX.sels.forEach(([s])=>s.disabled=true);
+    EX.order.locked=true;EX.orderW.render();const ordOk=EX.orderW.mark();
+    EX.texts.forEach(t=>t.readOnly=true);EX.refs.forEach(r=>r.classList.add("show"));
+    seat.disabled=name.disabled=true;submit.hidden=true;retry.hidden=false;
+    const total=mcS+labS+(ordOk?1:0);
+    result.innerHTML="";const r=H("div",{class:"result"},result);
+    H("p",{html:`<b style="font-family:var(--serif);font-size:1.4rem;color:var(--green)">得分 ${total} / ${TOTAL}</b>`},r);
+    H("p",{text:`選擇題 ${mcS} / 10，標示題 ${labS} / 7，排序題 ${ordOk?1:0} / 1。往上捲動可以看到每一題的答案與解說。`},r);
+    const st=H("p",{class:"hint",style:"margin-top:6px",text:"正在把作答紀錄送給老師…"},r);
+    await capsReady;
+    const uid=USER&&typeof USER.id==="function"?await USER.id():null;
+    if(!DB||!uid){st.textContent=!window.claude?"這是離線版本，作答紀錄不會送給老師。成績只顯示在這裡。":"這次的紀錄沒有送出：需要登入 claude.ai，並由老師給你可以作答的權限。成績只顯示在這裡。";return;}
+    try{
+      const ref=DB.doc("submissions/"+uid);let attempts=1;
+      try{const prev=await ref.get();if(prev.exists)attempts=(Number(prev.data().attempts)||0)+1;}catch(e){}
+      await ref.set({seat:seat.value.trim().slice(0,40),name:name.value.trim().slice(0,40),score:total,mcScore:mcS,labelScore:labS,orderOk:ordOk,
+        mc:EX.mc.map(v=>v===null?-1:v),label:EX.sels.map(([s])=>s.value),order:[...EX.order.cur],open:EX.texts.map(t=>t.value.slice(0,2000)),submittedAt:Date.now(),attempts});
+      st.textContent=`作答紀錄已送給老師（這是你第 ${attempts} 次交卷，老師只會看到最後一次）。`;
+    }catch(e){st.textContent="這次的紀錄沒有送出：你目前的權限無法儲存作答紀錄。成績只顯示在這裡。";}
+  };
+  retry.onclick=()=>{build();document.getElementById("examPane").scrollIntoView();};
+  capsReady.then(async()=>{
+    const p=document.getElementById("exPerm");
+    if(!DB||!USER){p.textContent=!window.claude?"提醒：這是離線版本，可以作答並對答案，但紀錄不會送給老師。":"提醒：這個頁面目前無法送出作答紀錄（需要登入 claude.ai）。你仍然可以作答並對答案。";return;}
+    let can=null;try{can=await USER.can("data.write");}catch(e){}
+    if(can===false)p.textContent="提醒：你目前只有檢視權限，交卷後的紀錄無法送給老師。你仍然可以作答並對答案。";
+  });
+})();
+
+/* ---------- downloadable paper worksheet ---------- */
+function sheetDoc(withKey){
+  const sv=document.createElementNS(NS,"svg");drawDicotInset(sv,"num");sv.setAttribute("xmlns",NS);sv.setAttribute("width","240");
+  const esc=t=>String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;");
+  let b=`<h1>莖的構造　學習單${withKey?"　解答":""}</h1><p class="meta">選修生物 II｜第 2 章 植物體的構造與功能｜2-2-2</p>`;
+  if(!withKey)b+=`<p class="who">班級座號：＿＿＿＿＿＿＿　姓名：＿＿＿＿＿＿＿＿＿　得分：＿＿＿／${TOTAL}</p>`;
+  b+=`<h2>一、選擇題</h2>`;
+  QUIZ.forEach((q,i)=>{b+=`<div class="q"><p>${withKey?"":"（　　）"}${i+1}. ${esc(q[0])}</p><p class="op">${q[1].map((o,j)=>`(${ABCD[j]}) ${esc(o)}`).join("　")}</p>`;if(withKey)b+=`<p class="ans">答案：(${ABCD[q[2]]})　${esc(q[3])}</p>`;b+=`</div>`;});
+  b+=`<h2>二、標示題</h2><p>請寫出圖中編號 1～7 的構造名稱。（選項：${LABEL_OPTS.map(o=>PARTS[o].n).join("、")}）</p><div class="lab">${sv.outerHTML}<ol>${LABEL_ANS.map(a=>`<li>${withKey?`<span class="ans">${PARTS[a].n}</span>`:"＿＿＿＿＿＿＿＿"}</li>`).join("")}</ol></div>`;
+  b+=`<h2>三、排序題</h2><p>將下列樹皮構造由外而內排列：${ORDER_START.join("、")}</p>`;
+  b+=withKey?`<p class="ans">${ORDER_ANS.join(" → ")}（木栓層、木栓形成層、木栓皮層合稱周皮）</p>`:`<p>答：＿＿＿＿ → ＿＿＿＿ → ＿＿＿＿ → ＿＿＿＿ → ＿＿＿＿</p>`;
+  b+=`<h2>四、思考題</h2>`;
+  OPENQ.forEach((o,i)=>{b+=`<div class="q"><p>${i+1}. ${esc(o[0])}</p>${withKey?`<p class="ans">參考答案：${esc(o[1])}</p>`:`<div class="lines"></div>`}</div>`;});
+  const css=`:root{--surface:#fff;--ink:#1C2B25;--ink-soft:#4E6159;--t-epi:#2F6E58;--t-cortex:#D3E8DB;--t-cortex-line:#9DC7B1;--t-pith:#F1F7F2;--t-pith-line:#BCD6C7;--t-phloem:#79B198;--t-phloem-line:#4F8B71;--t-fiber:#C4577A;--t-cambium:#E3A93C;--t-xylem:#E5A0B0;--t-xylem-line:#9E2F4E}
+body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;color:#1C2B25;max-width:760px;margin:24px auto;padding:0 20px;line-height:1.8;font-size:16px}
+h1{font-size:1.6rem;margin:0}h2{font-size:1.15rem;border-bottom:2px solid #2E7A60;padding-bottom:2px;margin:26px 0 10px;color:#2E7A60}
+.meta{color:#4E6159;margin:2px 0 14px}.who{border:1px solid #999;padding:8px 12px}
+.q{break-inside:avoid;margin:0 0 10px}.q p{margin:2px 0}.op{padding-left:2.4em;color:#333}.ans{color:#AE3559;font-weight:700}
+.lab{display:flex;gap:24px;align-items:flex-start;break-inside:avoid}.lab ol{line-height:2.4}
+.lbl text{font-size:13px}.lbl line{stroke:#4E6159;stroke-width:1}
+.lines{height:96px;background:repeating-linear-gradient(transparent 0 31px,#bbb 31px 32px)}
+.print{position:fixed;top:12px;right:12px;padding:8px 16px;border-radius:999px;border:1.5px solid #2E7A60;background:#2E7A60;color:#fff;font:inherit;cursor:pointer}
+@media print{.print{display:none}body{margin:0}}`;
+  return `<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>莖的構造 學習單${withKey?" 解答":""}</title><style>${css}</style></head><body><button class="print" onclick="window.print()">列印／另存 PDF</button>${b}</body></html>`;
+}
+capsReady.then(()=>{
+  const standalone=!window.claude;
+  if(!DL&&!standalone)return;
+  document.getElementById("dlRow").hidden=false;const msg=document.getElementById("dlMsg");
+  const saveFile=async(filename,data)=>{
+    if(DL){await DL.save({filename,data});return;}
+    const url=URL.createObjectURL(new Blob([data],{type:"text/html;charset=utf-8"}));
+    const a=document.createElement("a");a.href=url;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);
+  };
+  const go=async(withKey)=>{msg.textContent="";try{await saveFile(withKey?"莖的構造_學習單解答.html":"莖的構造_學習單.html",sheetDoc(withKey));msg.textContent="已下載。用瀏覽器打開後可直接列印或另存成 PDF。";}catch(e){if(e&&e.code&&e.code!=="cancelled"&&e.code!=="declined")msg.textContent="下載沒有完成，請再試一次。";}};
+  document.getElementById("dlSheet").onclick=()=>go(false);document.getElementById("dlKey").onclick=()=>go(true);
+});
+
+/* ---------- teacher dashboard (editors only) ---------- */
+capsReady.then(async()=>{
+  if(!DB||!USER)return;
+  let isEditor=false;try{isEditor=await USER.canEdit();}catch(e){}
+  if(!isEditor)return;
+  const sec=document.getElementById("teacher");sec.hidden=false;
+  const stats=document.getElementById("tStats"),rates=document.getElementById("tRates"),table=document.getElementById("tTable"),empty=document.getElementById("tEmpty"),csvBtn=document.getElementById("tCsv");
+  let rows=[];
+  const fmt=t=>{const d=new Date(t);return isNaN(d)?"":`${d.getMonth()+1}/${d.getDate()} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;};
+  async function render(){
+    stats.innerHTML="";rates.innerHTML="";table.innerHTML="";
+    empty.hidden=rows.length>0;csvBtn.hidden=!(rows.length&&DL);
+    if(!rows.length)return;
+    const sc=rows.map(r=>Number(r.score)||0);const avg=sc.reduce((a,b)=>a+b,0)/sc.length;
+    [["交卷人數",rows.length],["平均分數",avg.toFixed(1)],["最高分",Math.max(...sc)],["最低分",Math.min(...sc)]].forEach(([k,v])=>{const s=H("div",{class:"stat"},stats);H("b",{text:String(v)},s);s.append(k);});
+    const items=[];QUIZ.forEach((q,i)=>items.push([`選擇 ${i+1}`,rows.filter(r=>Array.isArray(r.mc)&&r.mc[i]===q[2]).length]));
+    LABEL_ANS.forEach((a,i)=>items.push([`標示 ${i+1}`,rows.filter(r=>Array.isArray(r.label)&&r.label[i]===a).length]));
+    items.push(["排序",rows.filter(r=>r.orderOk===true).length]);
+    items.forEach(([k,n])=>{const pct=Math.round(n/rows.length*100);const d=H("div",{class:"rate-row"},rates);H("span",{text:k},d);const t=H("div",{class:"track"},d);H("div",{class:"fill",style:`width:${pct}%;background:var(${pct<60?"--safranin":"--green"})`},t);H("span",{text:pct+"%"},d);});
+    let ps={};try{ps=await USER.profiles(rows.map(r=>r._id))||{};}catch(e){}
+    const head=H("thead",{},table);const hr=H("tr",{},head);["班級座號","姓名","帳號","總分","選擇","標示","排序","次數","交卷時間","思考題"].forEach(h=>H("th",{scope:"col",text:h},hr));
+    const body=H("tbody",{},table);
+    [...rows].sort((a,b)=>String(a.seat).localeCompare(String(b.seat),"zh-Hant",{numeric:true})).forEach(r=>{const tr=H("tr",{},body);
+      [r.seat,r.name,(ps[r._id]&&ps[r._id].name)||"—",`${r.score} / ${TOTAL}`,`${r.mcScore}/10`,`${r.labelScore}/7`,r.orderOk?"✓":"✗",r.attempts||1,fmt(r.submittedAt)].forEach(v=>H("td",{text:String(v??"")},tr));
+      const td=H("td",{class:"open"},tr);const det=H("details",{},td);H("summary",{text:"展開"},det);(Array.isArray(r.open)?r.open:[]).forEach((t,i)=>H("p",{style:"margin:4px 0;font-size:.9rem",text:`${i+1}. ${t||"（未作答）"}`},det));});
+  }
+  DB.collection("submissions").onSnapshot(snap=>{rows=snap.docs.filter(d=>d.exists).map(d=>Object.assign({_id:d.id},d.data()));render();},()=>{empty.textContent="讀取作答紀錄時發生問題，請重新整理頁面。";});
+  csvBtn.onclick=async()=>{
+    const q=v=>`"${String(v??"").replace(/"/g,'""')}"`;
+    const head=["班級座號","姓名","總分","選擇題","標示題","排序題","作答次數","交卷時間",...QUIZ.map((_,i)=>`選擇${i+1}`),...OPENQ.map((_,i)=>`思考題${i+1}`)];
+    const lines=[head.map(q).join(",")];
+    rows.forEach(r=>lines.push([r.seat,r.name,r.score,r.mcScore,r.labelScore,r.orderOk?1:0,r.attempts||1,new Date(r.submittedAt).toLocaleString("zh-TW"),...QUIZ.map((_,i)=>{const v=Array.isArray(r.mc)?r.mc[i]:-1;return v>=0?ABCD[v]:"";}),...OPENQ.map((_,i)=>Array.isArray(r.open)?r.open[i]:"")].map(q).join(",")));
+    try{await DL.save({filename:"莖的構造_作答紀錄.csv",data:"\ufeff"+lines.join("\r\n")});}catch(e){}
+  };
+});
+</script>
+</body>
+</html>
